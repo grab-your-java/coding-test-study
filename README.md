@@ -1,3 +1,22 @@
+# How to start
+### 프로젝트 세팅
+```bash
+# 레포지토리 클론
+git clone https://github.com/grab-your-java/coding-test-study.git
+
+# 개인 폴더 생성
+# 생성된 폴더는 github repository 메인 화면에 바로 보입니다!
+cd coding-test-study
+mkdir "개인 폴더 이름" 
+
+# (Optional) 
+# Eclipse 환경의 .gitignore 복사하기
+cp newbieJanghan/.gitignore "개인 폴더 이름"
+```
+
+이후 개인 폴더 아래의 구조는 자유롭게 진행합니다.
+
+
 # Rules
 ## How to solve
 1. 풀고자 하는 문제의 이슈를 확인합니다.
