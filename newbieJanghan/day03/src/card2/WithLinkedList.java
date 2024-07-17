@@ -1,4 +1,4 @@
-package day03;
+package card2;
 
 import java.util.Scanner;
 import java.util.LinkedList;
