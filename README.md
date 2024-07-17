@@ -1,5 +1,5 @@
 # How to start
-### 프로젝트 세팅
+## 프로젝트 세팅
 ```bash
 # 레포지토리 클론
 git clone https://github.com/grab-your-java/coding-test-study.git
@@ -9,13 +9,31 @@ git clone https://github.com/grab-your-java/coding-test-study.git
 cd coding-test-study
 mkdir "개인 폴더 이름" 
 
-# (Optional) 
-# Eclipse 환경의 .gitignore 복사하기
+# (Optional) Eclipse 환경의 .gitignore 복사하기
 cp newbieJanghan/.gitignore "개인 폴더 이름"
 ```
 
-이후 개인 폴더 아래의 구조는 자유롭게 진행합니다.
+## Eclipse (STS) 시작하기
+### 1. STS 열기
 
+<img src="./assets/sts_launcher.png" alt="STS launcher" width="450" />
+
+1. **Browse** 클릭  
+2. coding-test-study/개인 폴더 이름    
+
+### 2-1. Create Java Project
+<img src="./assets/create_java_project.png" alt="프로젝트 생성" width="450" />
+
+1. project name 입력
+2. **Create module-info.java file** 체크 해제
+3. Finish
+
+### 2-2. Import Java Project
+<img src="./assets/import_java_project.png" alt="프로젝트 가져오기" width="450" />
+
+1. Use default location 체크 해제
+2. Browse 로 기존 Eclipse Project directory 경로 선택
+3. Finish
 
 # Rules
 ## How to solve
