@@ -8,9 +8,6 @@ git clone https://github.com/grab-your-java/coding-test-study.git
 # 생성된 폴더는 github repository 메인 화면에 바로 보입니다!
 cd coding-test-study
 mkdir "개인 폴더 이름" 
-
-# (Optional) Eclipse 환경의 .gitignore 복사하기
-cp newbieJanghan/.gitignore "개인 폴더 이름"
 ```
 
 ## Eclipse (STS) 시작하기
@@ -37,9 +34,17 @@ cp newbieJanghan/.gitignore "개인 폴더 이름"
 
 # Rules
 ## How to solve
-1. 풀고자 하는 문제의 이슈를 확인합니다.
-2. 개인 branch로 이동합니다.
+1. 풀고자 하는 문제의 **이슈**를 확인합니다.
+2. **main** branch로 이동한 후 새로운 **branch**를 생성합니다.
+```bash
+git checkout main
+git checkout -b "새 branch"
+```
 3. 요구 사항을 확인한 후 개인 디렉토리에서 풀이를 작성 후 **커밋**합니다.
+4. 진행한 브랜치를 remote repository (origin) 으로 **push**합니다.
+```bash
+git push origin "새 branch" // main X
+```
 4. 다른 스터디원과 공유할 수 있도록 **PR**을 작성합니다.
 
 ## Commit Rules
@@ -63,6 +68,10 @@ cp newbieJanghan/.gitignore "개인 폴더 이름"
 ### 풀이_요약
 - 한 줄로 본인이 활용한 풀이법과 성공/실패 이유를 기재합니다.
 
-## Pull Request Rules
-1. 개인 branch에서 main branch로 PR을 작성합니다.
-2. PR template을 참고하여, 스터디원과 공유하고 싶은 내용을 작성합니다.
+## Branch & Pull Request Rules
+1. 문제 풀이를 작성하는 브랜치 명은 스터디원과 구별되게 작성합니다.
+```bash
+git checkout -b "janghan/stack"
+```
+2. 반드시 개인 브랜치 -> main 브랜치로 PR을 시작합니다.
+3. PR template을 참고하여, 스터디원과 공유하고 싶은 내용을 작성합니다.
