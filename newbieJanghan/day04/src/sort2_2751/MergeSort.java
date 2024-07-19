@@ -17,9 +17,12 @@ public class MergeSort {
 		list = mergeSort(list, 0, list.length - 1);
 
 		// print
-		for (int i = 0; i < N; i++) {
-			System.out.println(list[i]);
-		}
+		StringBuilder sb = new StringBuilder();
+		for (int x: list) {
+            sb.append(x).append("\n");
+        }
+
+        System.out.println(sb);
 	}
 
 	public static int[] mergeSort(int[] list, int l, int r) {
