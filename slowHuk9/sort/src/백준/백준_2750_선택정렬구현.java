@@ -2,7 +2,7 @@ package 백준;
 
 import java.util.Scanner;
 
-public class 백준_2750_버블정렬구현 {
+public class 백준_2750_선택정렬구현 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -17,7 +17,7 @@ public class 백준_2750_버블정렬구현 {
 		// 4. 조건이 있다면 Math.abs가 1000보다 작거나 같다.?
 		// 5. 다시 배열 for문 돌면서 작은 값을 앞으로 보내는 교환 형식으로 실행
 
-		// 1. 스캐너를 열어 수의 개수를 받는다.!
+		// 1. 스캐너를 열어 수의 개수를 받는다.
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 
@@ -30,19 +30,23 @@ public class 백준_2750_버블정렬구현 {
 		}
 		
 		for (int i = 0; i < n-1; i++) {
-			for (int j = n-1 ; j > i; j--) {
-				if(arr[j-1] > arr[j]) { // 뒤에 놈이 더 작을때 -- 오름차순이 아닐때
-					int x = arr[j];
-					arr[j] = arr[j-1];
-					arr[j-1] = x;
+			int min_idx = i;
+			for (int j = i+1 ; j < n; j++) {
+				if(arr[j] < arr[min_idx]) {
+					min_idx = j;
 				}
 			}
-			
-			}
+			//arr[i]랑 arr[min_idx]랑 교환
+			int x = arr[i];
+			arr[i] = arr[min_idx];
+			arr[min_idx] = x;
+		}
 		
 		for (int i = 0; i < arr.length; i++) {
 			System.out.println(arr[i]);
 		}
+		
+		
 			sc.close();
 	}
 
