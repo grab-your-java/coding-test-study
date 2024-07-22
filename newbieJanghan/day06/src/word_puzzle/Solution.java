@@ -1,6 +1,5 @@
 package word_puzzle;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Solution {
@@ -25,14 +24,10 @@ public class Solution {
 			for (int r = 0; r < N; r++) {
 				int horizontalCount = 0;
 				for (int c = 0; c < N; c++) {
-//					System.out.println("************");
-//					System.out.println("*** Searching Horizontal At: [ " + r + ", " + c + " ]");
 					if (map[r][c] == 1) {
-//						System.out.println("found!");
 						horizontalCount++;
 					} else {
 						if (horizontalCount == K) {
-//							System.out.println("not found but...");
 							result++;
 						} 
 						horizontalCount = 0;
@@ -42,25 +37,17 @@ public class Solution {
 				if (horizontalCount == K) {
 					result++;
 				}
-				
-//				System.out.println("*** Row " + r + " search result: " + result);
-				
 			}
 			
 			for (int c = 0; c<N; c++) {
 				int verticalCount = 0;
 				for (int r=0; r<N; r++) {
-//					System.out.println("************");
-//					System.out.println("*** Searching vertical At: [ " + r + ", " + c + " ]");
 					if (map[r][c] == 1) {
-//						System.out.println("found!");
 						verticalCount++;
 					} else {
 						if (verticalCount == K) {
-//							System.out.println("not found but...");
 							result++;
 						} 
-
 						verticalCount = 0;
 					}
 				}
@@ -68,9 +55,7 @@ public class Solution {
 				if (verticalCount == K) {
 					result++;
 				}
-//				System.out.println("*** Colum " + c + " search result: " + result);
 			}
-
 
 			System.out.println("#" + t + " " + result);
 		}
