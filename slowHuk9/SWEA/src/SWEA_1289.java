@@ -13,6 +13,7 @@ public class SWEA_1289 {
 			char[] currentMemory = new char[input.length()];
 
 
+			// 초기화된 메모리 인덱스 요소들은 모두 0 0 0 0 0 0
 			for (int i = 0; i < currentMemory.length; i++) {
 				currentMemory[i] = '0';
 			}
@@ -20,13 +21,7 @@ public class SWEA_1289 {
 //			for (int i = 0; i < currentMemory.length; i++) {
 //				System.out.print(currentMemory[i]);
 //			}
-			// 초기화된 메모리 인덱스 요소들은 모두 0 0 0 0 0 0
-			// 기존 메모리와 현재 초기화된 메모리 인덱스값 하나하나 씩 비교해서
-			// 같으면 넘어가고
-			// 비교했을 때 값이 다르면
-			// currentMemory[i]가 1일 때 ==> 그 인덱스 포함한 뒤의 인덱스 모두 0으로
-			// 0일때 --> 1로
-
+			// input 문자열을 char로 반환한다.
 			for (int i = 0; i < firstMemory.length; i++) {
 				firstMemory[i] = input.charAt(i);
 			}
@@ -36,7 +31,11 @@ public class SWEA_1289 {
 //			for (int i = 0; i < firstMemory.length; i++) {
 //				System.out.print(firstMemory[i]);
 //			}
-
+			// 현재 메모리와 기존 메모리의 인덱스 요소들을 비교하면서
+			// 다르면 기존 메모리 인덱스 값을
+			// change 에 저장하고
+			// 현재 메모리의 i 인덱스부터 마지막 인덱스까지
+			// change 값으로 덮어쓴다.
 			for (int i = 0; i < firstMemory.length; i++) {
 				if (firstMemory[i] != currentMemory[i]) {
 					char change = firstMemory[i];
