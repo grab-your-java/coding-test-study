@@ -19,15 +19,14 @@ public class Main {
 		while (maxBallCount < M) {
 			int currentBallerCount = friends[ballIdx];
 
-			// ballIdx 계산
+			// calculate ballIdx
+			// if odd, clockwise L else -L
 			if (currentBallerCount % 2 == 1) {
-				// 홀수. 시계방향으로 L만큼
 				ballIdx += L;
 			} else {
-				// 짝수. 반시계방향으로 L만큼
 				ballIdx -= L;
 			}
-			// ballIdx 보정
+			// correct index for circular array
 			if (ballIdx >= 0) {
 				ballIdx %= N;
 			} else {
