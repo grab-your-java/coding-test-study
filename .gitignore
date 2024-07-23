@@ -1,3 +1,8 @@
+### IntelliJ ###
+*.iml
+.idea
+out/
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,visualstudiocode,eclipse,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,visualstudiocode,eclipse,python
 
