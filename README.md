@@ -7,7 +7,9 @@
 ### Code Review
 - 모임 날 각자의 PR에 담긴 코드와 코멘트 보면서 **Code Review**
 - **Reviewer & Reviewee**    
-    >   
+    반드시 한 명 이상의 PR을 Review!  
+    > 24.07.23  
+    >  [장한](https://gitub.com/newbieJanghan) -> [진호](https://github.com/SON1205) -> [혁규](https://github.com/Huk9uri) -> [소현](https://github.com/elsa-kim)
     >   
  
 # How to Commit 💻
