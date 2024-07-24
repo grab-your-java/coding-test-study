@@ -33,6 +33,7 @@ public class Main {
 				System.out.println("b");
 			}
 			
+			// case none
 			else {
 				System.out.println("a");
 			}
