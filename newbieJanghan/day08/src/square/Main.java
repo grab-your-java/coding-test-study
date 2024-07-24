@@ -22,22 +22,17 @@ public class Main {
 				System.out.println("d");
 			} 
 			
-			// case dot & line
-			else if (ax2 == bx1) {
-				if (ay2 == by1 || ay1 == by2) {
-					System.out.println("c");
-				} else {
-					System.out.println("b");
-				}
+			// case dot 
+			else if ((ax2 == bx1 && ay2 == by1) || (ax2 == bx1 && ay1 == by2) || 
+					(bx2 == ax1 && by2 == ay1) || (bx2 == ax1 && by1 == ay2)  ) {
+				System.out.println("c");
 			}
 			
-			else if (bx2 == ax1) {
-				if (by2 == ay1 || by1 == ay2) {
-					System.out.println("c");
-				} else {
-					System.out.println("b");
-				}
+			// case line
+			else if (ax2 == bx1 || ay2 == by1 || ax1 == bx2 || ay1 == by2) {
+				System.out.println("b");
 			}
+			
 			else {
 				System.out.println("a");
 			}
