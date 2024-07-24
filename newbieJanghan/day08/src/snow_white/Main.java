@@ -32,6 +32,7 @@ public class Main {
 			}
 		}
 
+		// sort asc
 		Arrays.sort(heights);
 		for (int height : heights) {
 			if (height == 0) {
