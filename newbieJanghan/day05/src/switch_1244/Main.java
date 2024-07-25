@@ -47,12 +47,14 @@ public class Main {
 			}
 		}
 
-		// printb
+		// print
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < N; i++) {
-			sb.append(switches[i] + " ");
+			sb.append(switches[i]);
 			if ((i + 1) % 20 == 0) {
 				sb.append("\n");
+			} else {
+				sb.append(" ");
 			}
 		}
 		System.out.println(sb);
