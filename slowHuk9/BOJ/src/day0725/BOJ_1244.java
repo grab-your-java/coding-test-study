@@ -20,6 +20,10 @@ public class BOJ_1244 {
 				int gender = sc.nextInt(); // 1이면 남자 2는 여자
 				int n = sc.nextInt(); // 스위치번호
 
+				if (n < 1 || n > switches) {
+					return;
+				}
+
 				// 남자라면
 				if (gender == 1) {
 					// n 의 배수 들을 토글
@@ -42,7 +46,7 @@ public class BOJ_1244 {
 						arr[index] = 0;
 					}
 
-					while (((index - j >= 0) && (index + j) <= arr.length) && arr[index - j] == arr[index + j]) { // 대칭일때
+					while (((index - j >= 0) && (index + j) <= arr.length - 1) && arr[index - j] == arr[index + j]) { // 대칭일때
 						if (arr[index - j] == 0) {
 							arr[index - j] = 1;
 							arr[index + j] = 1;
@@ -61,7 +65,7 @@ public class BOJ_1244 {
 				// System.out.println(Arrays.toString(arr));
 			for (int i = 0; i < arr.length; i++) {
 				System.out.print(arr[i] + " ");
-				if (i > 0 && i % 20 == 0) {
+				if ((i+1) % 20 == 0) {
 					System.out.println();
 				}
 			}
