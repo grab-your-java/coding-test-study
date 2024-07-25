@@ -47,41 +47,41 @@ public class Main {
 					result -= ((bx2 - ax1) + (ay2 - by1)) * 2;
 				} else if (ax1 < bx2 && bx2 < ax2 && ay1 < by2 && by2 < ay2) {
 					System.out.println("case 4");
-					result -= ((ax2 - bx1) + (ay2 - by2)) * 2;
+					result -= ((bx2 - ax1) + (by2 - ay1)) * 2;
 				}
 
 				// line same
 				else if (ax2 == bx1) {
-					if (by1 < ay2 && ay2 < by2) {
+					if (ay1 < by1 && by1 < ay2) {
 						System.out.println("case 5: " + (ay2 - by1));
-						result -= (ay2 - by1);
-					} else if (by1 < ay1 && ay1 < by2) {
-						System.out.println("case 6");
-						result -= (by2 - ay1);
+						result -= (ay2 - by1) * 2;
+					} else if (ay1 < by2 && by2 < ay2) {
+						System.out.println("case 6: " + (by2 - ay1));
+						result -= (by2 - ay1) * 2;
 					}
 				} else if (ay1 == by2) {
-					if (ax2 < bx2 && by1 < ax2) {
-						System.out.println("case 7");
-						result -= (ax2 - bx1);
-					} else if (bx1 < ax1 && ax1 < bx2) {
-						System.out.println("case 8");
-						result -= (bx2 - ax1);
+					if (ax1 < bx1 && bx1 < ax2) {
+						System.out.println("case 7: " + (ax2 - bx1));
+						result -= (ax2 - bx1) * 2;
+					} else if (ax1 < bx2 && bx2 < ax2) {
+						System.out.println("case 8: " + (bx2 - ax1));
+						result -= (bx2 - ax1) * 2;
 					}
 				} else if (ax1 == bx2) {
-					if (by1 < ay2 && ay2 < by2) {
-						System.out.println("case 9");
-						result -= (ay2 - by1);
-					} else if (by1 < ay1 && ay1 < by2) {
-						System.out.println("case 10");
-						result -= (by2 - ay1);
+					if (ay1 < by2 && by2 < ay2) {
+						System.out.println("case 9: " + (by2 - ay1));
+						result -= (by2 - ay1) * 2;
+					} else if (ay1 < by1 && by1 < ay2) {
+						System.out.println("case 10: " + (ay2 - by1));
+						result -= (ay2 - by1) * 2;
 					}
 				} else if (ay2 == by1) {
-					if (bx1 < ax1 && ax1 < bx2) {
-						System.out.println("case 11");
-						result -= (bx2 - ax1);
-					} else if (bx1 < ax2 && ax2 < bx2) {
-						System.out.println("case 12");
-						result -= (ax2 - bx1);
+					if (ax1 < bx2 && bx2 < ax2) {
+						System.out.println("case 11: " + (bx2 - ax1));
+						result -= (bx2 - ax1) * 2;
+					} else if (ax1 < bx1 && bx2 < ax2) {
+						System.out.println("case 12: " + (ax2 - bx1));
+						result -= (ax2 - bx1) * 2;
 					}
 				}
 			}
