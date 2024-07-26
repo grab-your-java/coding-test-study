@@ -84,31 +84,16 @@ public class Main2 {
 
 			for (int r = y; r <= y + 10; r++) {
 				for (int c = x; c <= x + 10; c++) {
-					map[r][c]++;
-				}
-			}
-		}
-		for (int i = 100; i >= 0; i--) {
-			System.out.println(Arrays.toString(map[i]));
-		}
-
-		// 중복 제거
-		for (int i = 0; i < N; i++) {
-			int[] point = paperPoints[i];
-			int x = point[0];
-			int y = point[1];
-
-			for (int r = y; r <= y + 10; r++) {
-				for (int c = x; c <= x + 10; c++) {
 					if (r == y || r == y + 10 || c == x || c == x + 10) {
-						continue;
-					} else {
-						map[r][c] = 0;
+						if (map[r][c] == 0) {
+							map[r][c] = 1;
+							continue;
+						}
 					}
+					map[r][c] = 2;
 				}
 			}
 		}
-
 		for (int i = 100; i >= 0; i--) {
 			System.out.println(Arrays.toString(map[i]));
 		}
@@ -122,19 +107,16 @@ public class Main2 {
 			for (int c = 0; c <= 100; c++) {
 				int dot = map[r][c];
 				if (!inLine) {
-					if (dot == 0) {
-						continue;
-					} else {
+					if (dot == 1) {
 						inLine = true;
-						temp++;
 					}
 				} else {
-					if (dot == 0) {
-						inLine = false;
-						result += temp - 1;
-					} else {
+					if (dot == 1) {
 						temp++;
 						continue;
+					} else {
+						inLine = false;
+						result += temp;
 					}
 				}
 			}
@@ -147,19 +129,16 @@ public class Main2 {
 			for (int r = 0; r <= 100; r++) {
 				int dot = map[r][c];
 				if (!inLine) {
-					if (dot == 0) {
-						continue;
-					} else {
+					if (dot == 1) {
 						inLine = true;
-						temp++;
 					}
 				} else {
-					if (dot == 0) {
-						inLine = false;
-						result += temp - 1;
-					} else {
+					if (dot == 1) {
 						temp++;
 						continue;
+					} else {
+						inLine = false;
+						result += temp;
 					}
 				}
 			}
