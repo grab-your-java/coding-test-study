@@ -10,7 +10,7 @@ public class Main {
 		int result = 0;
 		int i = 0;
 		while (i < cArr.length) {
-			if (i == cArr.length-1) {
+			if (i == cArr.length - 1) {
 				result++;
 				break;
 			}
@@ -26,7 +26,7 @@ public class Main {
 				}
 				break;
 			case 'd':
-				if (next == 'z' && cArr[i + 2] == '=') {
+				if (next == 'z' && i + 2 < cArr.length && cArr[i + 2] == '=') {
 					i += 3;
 				} else if (next == '-') {
 					i += 2;
