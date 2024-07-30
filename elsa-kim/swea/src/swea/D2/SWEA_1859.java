@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class SWEA_1859 {
-
 	public static long getMoney(int[] arr) {
 		long sum = 0;
 		int bigIdx = 0;
@@ -14,14 +13,8 @@ public class SWEA_1859 {
         for(int i=0; i<bigIdx; i++){
         	sum+=arr[bigIdx]-arr[i];
         }
-        System.out.println(sum);
         int[] seperateArr = Arrays.copyOfRange(arr, bigIdx+1, arr.length); 
-        System.out.println(seperateArr.length+"!!");
-        for(int n:seperateArr) {
-        	System.out.println(n+"??");
-        }
         if(seperateArr.length > 1) sum += getMoney(seperateArr);
-        
         return sum;
 	}
 	
@@ -38,10 +31,8 @@ public class SWEA_1859 {
             }
             
            long sum = getMoney(arr);
-            
             System.out.println("#"+test_case+" "+sum);
 			
 		}
 	}
-
 }
