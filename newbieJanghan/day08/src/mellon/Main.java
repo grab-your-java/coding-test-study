@@ -8,7 +8,7 @@ public class Main {
 		int P = sc.nextInt();
 		int height = 0;
 		int width = 0;
-		long smallArea = 0;
+		int smallArea = 0;
 
 		int[] directions = new int[6];
 		int[] distances = new int[6];
@@ -26,16 +26,20 @@ public class Main {
 			}
 		}
 
-		// when direction doubled after one line,
-		// small area created.
+		// when direction doubled after one line, small area created.
+		// but if before and after of current direction is same,
+		// it's in small area.
 		for (int i = 0; i < 6; i++) {
+			if (directions[(i + 5) % 6] == directions[(i + 1) % 6]) {
+				continue;
+			}
 			if (directions[(i + 2) % 6] == directions[i]) {
-				smallArea = (long) distances[(i + 1) % 6] * distances[(i + 2) % 6];
+				smallArea = distances[(i + 1) % 6] * distances[(i + 2) % 6];
 				break;
 			}
 		}
 
-		long area = (long) height * width - smallArea;
+		int area = height * width - smallArea;
 		System.out.println(P * area);
 	}
 }
