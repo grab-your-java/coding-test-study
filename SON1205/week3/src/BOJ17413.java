@@ -13,12 +13,11 @@ public class BOJ17413 {
             if (input[idx].equals("<")) {
                 swap(input, prevIdx, idx);
                 prevIdx = idx;
-                for (int i = idx + 4; i < input.length; i++) {
+                for (int i = idx + 1; i < input.length; i++) { // 문제 잘 읽자...
                     if (input[i].equals(">")) {
-                        idx = i;
-                        prevIdx = ++idx;
+                        prevIdx = idx = i + 1;
                         break;
-                    }
+                   }
                 }
             } else if (input[idx].equals(" ")) {
                 swap(input, prevIdx, idx);
@@ -37,8 +36,8 @@ public class BOJ17413 {
     }
 
     static void swap(String[] arr, int prevIdx, int idx) {
-        for (int i = 0; i < idx - prevIdx + 1; i++) {
-            if (i <= idx - prevIdx - 1 - i) {
+        for (int i = 0; i < idx - prevIdx; i++) {
+            if (prevIdx + i <= idx - 1 - i) {
                 String tmp = arr[prevIdx + i];
                 arr[prevIdx + i] = arr[idx - 1 - i];
                 arr[idx - 1 - i] = tmp;

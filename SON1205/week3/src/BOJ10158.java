@@ -21,6 +21,12 @@ public class BOJ10158 {
                 int deltaX = w - p;
                 int deltaY = h - q;
 
+                if (t < deltaX || t < deltaY) {
+                    p += t;
+                    q += t;
+                    break;
+                }
+
                 if (deltaX == deltaY) {
                     p = w;
                     q = h;
@@ -40,32 +46,87 @@ public class BOJ10158 {
                 }
 
             } else if (!x && y) {//좌상향
-                int deltaX = w - p;
+                int deltaX = p;
                 int deltaY = h - q;
 
+                if (t < deltaX || t < deltaY) {
+                    p -= t;
+                    q += t;
+                    break;
+                }
+
                 if (deltaX == deltaY) {
-                    p = w;
+                    p = 0;
                     q = h;
                     x = !x;
                     y = !y;
                     t -= deltaX;
                 } else if (deltaX > deltaY) {
                     q = h;
-                    p += deltaY;
+                    p -= deltaY;
                     y = !y;
                     t -= deltaY;
                 } else {
-                    p = w;
+                    p = 0;
                     q += deltaX;
                     x = !x;
                     t -= deltaX;
                 }
             } else if (!x && !y) {//좌하향
+                int deltaX = p;
+                int deltaY = q;
 
+                if (t < deltaX || t < deltaY) {
+                    p -= t;
+                    q -= t;
+                    break;
+                }
+
+                if (deltaX == deltaY) {
+                    p = 0;
+                    q = 0;
+                    x = !x;
+                    y = !y;
+                    t -= deltaX;
+                } else if (deltaX > deltaY) {
+                    q = 0;
+                    p -= deltaY;
+                    y = !y;
+                    t -= deltaY;
+                } else {
+                    p = 0;
+                    q -= deltaX;
+                    x = !x;
+                    t -= deltaX;
+                }
             } else {//우하향
+                int deltaX = w - p;
+                int deltaY = q;
 
+                if (t < deltaX && t < deltaY) {
+                    p += t;
+                    q -= t;
+                    break;
+                }
+
+                if (deltaX == deltaY) {
+                    p = w;
+                    q = 0;
+                    x = !x;
+                    y = !y;
+                    t -= deltaX;
+                } else if (deltaX > deltaY) {
+                    q = 0;
+                    p += deltaY;
+                    y = !y;
+                    t -= deltaY;
+                } else {
+                    p = w;
+                    q -= deltaX;
+                    x = !x;
+                    t -= deltaX;
+                }
             }
-
         }
 
 //        while (t > 0) {
