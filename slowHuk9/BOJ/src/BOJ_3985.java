@@ -12,7 +12,7 @@ public class BOJ_3985 {
 		int[] cake = new int[L];
 		int[] want = new int[N];
 		int[] receive = new int[N];
-		int t = 1;
+		int t = 1; // t -- 방청객 번호
 		while (t <= N) {
 			int p = sc.nextInt();
 			int k = sc.nextInt();
