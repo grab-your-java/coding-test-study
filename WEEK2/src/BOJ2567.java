@@ -11,7 +11,7 @@ public class BOJ2567 {
 
         for (int i = 0; i < N; i++) {
             col[i] = sc.nextInt();
-            row[i] = sc.nextInt();
+            row[i] = sc.nextInt(); 
         }
 
         int[][] arr = new int[101][101];
