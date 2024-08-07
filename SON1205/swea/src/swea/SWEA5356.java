@@ -9,15 +9,25 @@ public class SWEA5356 {
 		int T = sc.nextInt();
 		
 		for (int TC = 1; TC <= T; TC++) {
-			String[][] inputs = new String[5][];
+			String[] inputs = new String[5];
 			
 			for (int i = 0; i < 5; i++) {
-				 inputs[i] = sc.next().split("");
+				inputs[i] = sc.next();
 			}
 			
 			StringBuilder sb = new StringBuilder();
 			
-			for (int i = 0; i < inputs.length; i)
+			for (int i = 0; i < 15; i++) {
+				for (int j = 0; j < 5; j++) {
+					if (inputs[j].length() <= i) {
+						continue;
+					}
+						
+					sb.append(inputs[j].charAt(i));
+				}
+			}
+			
+			System.out.println("#" + TC + " " + sb.toString());
 		}
 	}
 
