@@ -39,17 +39,12 @@ public class backjoon_9012 {
                 }
             }
         }
-        if (VPS && stack.empty()) { // 순회 다 끝내고나서 여는 괄호가 더 많을때를 판별해야 하는데
-            // 왜 for문 다 돌고 나온 stack이 안나올까요
-            // 했었는데 break; 문을 써가지구 남은 스택이 전달이 안됐나...???///?
+        if (VPS && stack.empty()) { 
             System.out.println("YES");
         } else {
             System.out.println("NO");
         }
-        // 6. 순회가 다 끝났는데 여는 괄호가 남아있다면(stack.empty가 false일때) no 출력
-        // 7. 순회가 다 끝났는데 여는괄호가 없다면 (stack.empty가 true라면) yes
-        //스택초기화해주기
-
+       
     }
 }
 }
