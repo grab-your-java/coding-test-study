@@ -13,7 +13,6 @@ public class BOJ_8958 {
 			int j = 0;
 			int sum = 0;
 			int score = 0;
-
 			while (j < s.length()) {
 				if (s.charAt(j) == 'O') {
 					score += 1;

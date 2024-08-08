@@ -50,4 +50,5 @@ public class BOJ_14696 {
 			}
 		}
 	}
+
 }

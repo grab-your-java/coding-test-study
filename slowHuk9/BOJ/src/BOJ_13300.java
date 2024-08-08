@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class BOJ_13300 {
-
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
@@ -29,14 +28,7 @@ public class BOJ_13300 {
 			}
 		}
 		System.out.println(cnt);
-
-//		for (int gender = 0; gender < st.length; gender++) {
-//			for (int grade = 0; grade < st[0].length; grade++) {
-//				System.out.print(st[gender][grade] + " ");
-//			}
-//			System.out.println();
-//		}
-
 	}
+
 
 }
