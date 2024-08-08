@@ -10,7 +10,10 @@
     반드시 한 명 이상의 PR을 Review!  
     > 24.07.23  
     >  [장한](https://gitub.com/newbieJanghan) -> [진호](https://github.com/SON1205) -> [혁규](https://github.com/Huk9uri) -> [소현](https://github.com/elsa-kim)
-    >   
+    > 
+    > 24.08.02
+    > 진호 -> 장한 -> 소현 -> 혁규 -> 진호
+  
  
 # How to Commit 💻
 ### Commit Message
