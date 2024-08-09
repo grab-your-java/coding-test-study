@@ -6,7 +6,7 @@ public class SWEA4698 {
 	static int[] arr = new int[1000001];
 	
 	static {
-		for (int i = 0; i < arr.length; i++) {
+		for (int i = 1; i < arr.length; i++) {
 			if (isPrime(i)) {
 				arr[i]++;
 			}
@@ -42,7 +42,11 @@ public class SWEA4698 {
 			int cnt = 0;
 			
 			for (int i = start; i <= end; i++) {
-				int tmp = arr[i];
+				int tmp = i;
+                
+				if (arr[i] == 0) {
+                    continue;
+                }
 				
 				while (tmp > 0) {
 					if (tmp % 10 == D) {
