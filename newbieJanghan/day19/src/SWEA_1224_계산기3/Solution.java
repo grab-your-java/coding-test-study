@@ -13,6 +13,7 @@ public class Solution {
 		}
 	}
 
+	// set priority between '+' and '*' 
 	static int valOf(char c) {
 		return c == '+' ? 1 : 2;
 	}
@@ -30,11 +31,13 @@ public class Solution {
 				stack.push(c);
 			} else if (c == ')') {
 				char popItem = stack.pop();
+				// pop until my pair comes out
 				while (popItem != '(') {
 					postfix += popItem;
 					popItem = stack.pop();
 				}
 			} else {
+				// pop until lower priority operator than me comes out
 				if (!stack.empty() && stack.peek() != '(' && valOf(stack.peek()) >= valOf(c)) {
 					postfix += stack.pop();
 				}
