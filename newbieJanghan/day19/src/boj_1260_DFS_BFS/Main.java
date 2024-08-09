@@ -10,31 +10,30 @@ public class Main {
 	static PriorityQueue<Integer>[] adjlist;
 	static boolean[] visited;
 	static ArrayList<Integer> answer;
-	static int vertexCount, edgeCount, start;
+	static int nodeCnt, edgeCnt, start;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		vertexCount = sc.nextInt();
-		edgeCount = sc.nextInt();
+		nodeCnt = sc.nextInt();
+		edgeCnt = sc.nextInt();
 		start = sc.nextInt();
 
-		adjlist = new PriorityQueue[vertexCount + 1];
-		for (int i = 1; i <= vertexCount; i++) {
+		// initialize adjacent list with priority
+		adjlist = new PriorityQueue[nodeCnt + 1];
+		for (int i = 1; i <= nodeCnt; i++) {
 			adjlist[i] = new PriorityQueue<>((a, b) -> a - b);
 		}
-
-		int count = 0;
-		while (count++ < edgeCount) {
+		
+		while (edgeCnt-- > 0) {
 			int a = sc.nextInt();
 			int b = sc.nextInt();
 			adjlist[a].add(b);
 			adjlist[b].add(a);
 		}
 
-		visited = new boolean[vertexCount + 1];
-		answer = new ArrayList<>();
-
 		// DFS
+		visited = new boolean[nodeCnt + 1];
+		answer = new ArrayList<>();
 		dfs(start);
 		for (int v : answer) {
 			System.out.print(v + " ");
@@ -42,7 +41,7 @@ public class Main {
 		System.out.println();
 
 		// BFS
-		visited = new boolean[vertexCount + 1];
+		visited = new boolean[nodeCnt + 1];
 		answer = new ArrayList<>();
 		bfs(start);
 		for (int v : answer) {
@@ -54,6 +53,7 @@ public class Main {
 		visited[now] = true;
 		answer.add(now);
 
+		// visit adjacent nodes if they are not visited yet
 		for (int next : adjlist[now]) {
 			if (!visited[next]) {
 				dfs(next);
@@ -71,6 +71,8 @@ public class Main {
 		while (!queue.isEmpty()) {
 			int now = queue.poll();
 			answer.add(now);
+			
+			// queuing adjacent nodes if they are not visited yet
 			for (int next : adjlist[now]) {
 				if (!visited[next]) {
 					queue.add(next);
