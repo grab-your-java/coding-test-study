@@ -1,13 +1,13 @@
 package boj_1260_DFS_BFS;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
 
 public class Main {
-	static PriorityQueue<Integer>[] adjlist;
+	static ArrayList<Integer>[] adjlist;
 	static boolean[] visited;
 	static ArrayList<Integer> answer;
 	static int nodeCnt, edgeCnt, start;
@@ -19,16 +19,20 @@ public class Main {
 		start = sc.nextInt();
 
 		// initialize adjacent list with priority
-		adjlist = new PriorityQueue[nodeCnt + 1];
+		adjlist = new ArrayList[nodeCnt + 1];
 		for (int i = 1; i <= nodeCnt; i++) {
-			adjlist[i] = new PriorityQueue<>((a, b) -> a - b);
+			adjlist[i] = new ArrayList<>();
 		}
-		
+
 		while (edgeCnt-- > 0) {
 			int a = sc.nextInt();
 			int b = sc.nextInt();
 			adjlist[a].add(b);
 			adjlist[b].add(a);
+		}
+
+		for (int i = 1; i <= nodeCnt; i++) {
+			Collections.sort(adjlist[i]);
 		}
 
 		// DFS
@@ -71,7 +75,7 @@ public class Main {
 		while (!queue.isEmpty()) {
 			int now = queue.poll();
 			answer.add(now);
-			
+
 			// queuing adjacent nodes if they are not visited yet
 			for (int next : adjlist[now]) {
 				if (!visited[next]) {
