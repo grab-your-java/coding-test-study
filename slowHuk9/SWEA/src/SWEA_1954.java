@@ -4,8 +4,8 @@ public class SWEA_1954 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int testCase = sc.nextInt();
 
+		int testCase = sc.nextInt();
 
 		for (int i = 1; i <= testCase; i++) {
 			int N = sc.nextInt();
@@ -18,6 +18,7 @@ public class SWEA_1954 {
 			int[] dx = { 0, 1, 0, -1 };
 			int[] dy = { 1, 0, -1, 0 };
 			int num = 1;
+			
 			//맵에 숫자채우기
 			while (num <= N * N) {
 				map[x][y] = num;
@@ -36,7 +37,6 @@ public class SWEA_1954 {
 				}
 			}
 			
-			
 			System.out.println("#" + i);
 			// 숫자 출력
 			for (int j = 0; j < map.length; j++) {
@@ -45,10 +45,7 @@ public class SWEA_1954 {
 				}
 				System.out.println();
 			}
-			
-
 		}
-
 	}
-
 }
+
