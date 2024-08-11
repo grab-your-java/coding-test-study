@@ -60,7 +60,7 @@ public class Solution {
 			if (cur.time > VISITED[cur.r][cur.c]) {
 				continue;
 			}
-//			System.out.println("cur: " + cur);
+
 			for (int i=0; i<4; i++) {
 				int nr = cur.r + dr[i];
 				int nc = cur.c + dc[i];
@@ -68,21 +68,12 @@ public class Solution {
 					continue;
 				}
 				int calculatedTime = cur.time + TIMES[nr][nc];
-//				System.out.println("nr: " + nr);
-//				System.out.println("nc: " + nc);
-//				System.out.println("cal time: " + calculatedTime);
 				if (calculatedTime < VISITED[nr][nc] ) {
 					pq.add(new Obstacle(nr, nc, calculatedTime));
-//					System.out.println(pq);
 					VISITED[nr][nc] = calculatedTime;
 				}
 
 			}
-//
-//			for (int[] visits: VISITED) {
-//				System.out.println(Arrays.toString(visits));
-//			}
-//			System.out.println();
 
 		}
 	}
