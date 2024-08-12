@@ -23,17 +23,14 @@ public class Main {
 				boolean[] visited = new boolean[nodeCount];
 				q.add(i);
 
-				
 				while (!q.isEmpty()) {
 					Integer node = q.poll();
 					visited[node] = true;
 					for (int next = 0; next < nodeCount; next++) {
-						System.out.println("searching " + i + " to " + j);
-						System.out.println("node: " + node + "'s next: " + next);
 						if (graph[node][next] == 0) {
 							continue;
 						}
-						
+
 						if (next == j) {
 							System.out.print("1 ");
 							continue NextPath;
@@ -44,7 +41,6 @@ public class Main {
 				}
 
 				System.out.print("0 ");
-
 			}
 			System.out.println();
 		}
