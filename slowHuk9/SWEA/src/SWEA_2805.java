@@ -18,13 +18,6 @@ public class SWEA_2805 {
 				}
 			}
 
-//			for (int j = 0; j < map.length; j++) {
-//				for (int k = 0; k < map.length; k++) {
-//					System.out.print(map[j][k]);
-//				}
-//				System.out.println();
-//			}
-
 			int sum = 0;
 			for (int j = 0; j < n / 2; j++) {
 				for (int k = n / 2 - j; k <= n / 2 + j; k++) {
