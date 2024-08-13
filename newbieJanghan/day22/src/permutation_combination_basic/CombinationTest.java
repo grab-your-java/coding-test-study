@@ -9,10 +9,10 @@ public class CombinationTest {
 		int[] numbers = { 7, 3, 2, 4, 1, 5, 6 };
 
 		Combination p = new Combination(numbers);
-		List<int[]> distinct = p.distinct(2);
-		for (int[] group : distinct) {
-			System.out.println(Arrays.toString(group));
-		}
+//		List<int[]> distinct = p.distinct(2);
+//		for (int[] group : distinct) {
+//			System.out.println(Arrays.toString(group));
+//		}
 		System.out.println("*********************");
 		List<int[]> repeatible = p.repeatible(2);
 		for (int[] group : repeatible) {
@@ -24,58 +24,66 @@ public class CombinationTest {
 	static class Combination {
 		int[] numbers;
 		boolean[] visited;
-		List<int[]> result;
+		List<int[]> sequences;
+		int size;
 
 		Combination(int[] numbers) {
 			this.numbers = numbers;
 		}
 
-		public List<int[]> distinct(int groupSize) {
-			result = new ArrayList<>();
+		public List<int[]> distinct(int size) {
+			sequences = new ArrayList<>();
 			visited = new boolean[numbers.length];
+			this.size = size;
 
-			int[] group = new int[groupSize];
-			distinct(group, 0, 0);
+			distinct(0, 0);
 
-			return result;
+			return sequences;
 		}
 
-		private void distinct(int[] group, int depth, int start) {
-			if (depth == group.length) {
-				result.add(Arrays.copyOf(group, group.length));
+		private void distinct(int depth, int start) {
+			if (depth == size) {
+				int[] sequence = new int[size];
+				for (int i = 0, j = 0; i < visited.length && j < size; i++, j++) {
+					if (visited[i]) {
+						sequence[j] = numbers[i];
+					}
+				}
+
+				sequences.add(sequence);
 				return;
 			}
 
 			for (int i = start; i < numbers.length; i++) {
-				int number = numbers[i];
 				if (!visited[i]) {
 					visited[i] = true;
-					group[depth] = number;
-					distinct(group, depth + 1, start + 1);
+					distinct(depth + 1, i + 1);
 					visited[i] = false;
 				}
 			}
 		}
 
-		public List<int[]> repeatible(int groupSize) {
-			result = new ArrayList<>();
+		public List<int[]> repeatible(int size) {
+			sequences = new ArrayList<>();
+			this.size = size;
+			
+			repeatible(new int[size], 0, 0);
 
-			int[] group = new int[groupSize];
-			repeatible(group, 0, 0);
-
-			return result;
+			return sequences;
 		}
 
-		private void repeatible(int[] group, int depth, int start) {
-			if (depth == group.length) {
-				result.add(Arrays.copyOf(group, group.length));
+		private void repeatible(int[] sequence, int depth, int start) {
+			System.out.println("current sequence: " + Arrays.toString(sequence));
+			if (depth == size) {
+				sequences.add(Arrays.copyOf(sequence, size));
+
 				return;
 			}
 
 			for (int i = start; i < numbers.length; i++) {
-				int number = numbers[i];
-				group[depth] = number;
-				repeatible(group, depth + 1, start);
+				System.out.println("i: " + i + " in depth: " + depth);
+				sequence[depth] = numbers[i];
+				repeatible(sequence, depth + 1, i);
 			}
 		}
 	}
