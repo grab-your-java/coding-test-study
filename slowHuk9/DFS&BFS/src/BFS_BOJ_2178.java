@@ -16,8 +16,8 @@ public class BFS_BOJ_2178 {
 		n = sc.nextInt();
 		m = sc.nextInt();
 
-		int[][] maze = new int[n][m];
-		boolean[][] visited = new boolean[n][m];
+		maze = new int[n][m];
+		visited = new boolean[n][m];
 
 		for (int x = 0; x < maze.length; x++) {
 			String s = sc.next();
@@ -26,12 +26,12 @@ public class BFS_BOJ_2178 {
 			}
 		}
 
-		for (int x = 0; x < maze.length; x++) {
-			for (int y = 0; y < maze[x].length; y++) {
-				System.out.print(maze[x][y] + " ");
-			}
-			System.out.println();
-		}
+//		for (int x = 0; x < maze.length; x++) {
+//			for (int y = 0; y < maze[x].length; y++) {
+//				System.out.print(maze[x][y] + " ");
+//			}
+//			System.out.println();
+//		}
 
 		int result = bfs(0, 0);
 		System.out.println(result);
@@ -40,7 +40,8 @@ public class BFS_BOJ_2178 {
 
 	static int bfs(int x, int y) {
 		Queue<int[]> queue = new ArrayDeque<>();
-		queue.add(new int[] { x, y });
+		int[] firstXY = {x,y};
+		queue.add(firstXY);
 		visited[x][y] = true;
 
 		while (!queue.isEmpty()) {
@@ -54,9 +55,10 @@ public class BFS_BOJ_2178 {
 
 			for (int i = 0; i < 4; i++) {
 				int nextX = currX + dx[i];
-				int nextY = currY + dx[i];
+				int nextY = currY + dy[i];
 
-				if (nextX >= 0 && nextX < n && nextY >= 0 && nextY < n && visited[nextX][nextY] == false) {
+				if (nextX >= 0 && nextX < n && nextY >= 0 && nextY < m && visited[nextX][nextY] == false
+						&& maze[nextX][nextY] == 1) {
 					queue.add(new int[] { nextX, nextY });
 					visited[nextX][nextY] = true;
 					maze[nextX][nextY] = maze[currX][currY] + 1;
