@@ -22,12 +22,12 @@ public class Main {
 		Arrays.sort(numbers);
 
 		int[] output = new int[size];
-		combination(output, 0, 0);
+		permutation(output, 0, 0);
 
 		System.out.println(sb);
 	}
 
-	static void combination(int[] output, int depth, int start) {
+	static void permutation(int[] output, int depth, int start) {
 		if (depth == size) {
 			for (int num : output) {
 				sb.append(num + " ");
@@ -39,7 +39,7 @@ public class Main {
 
 		for (int i = 0; i < numbers.length; i++) {
 			output[depth] = numbers[i];
-			combination(output, depth + 1, i);
+			permutation(output, depth + 1, i);
 		}
 	}
 }
