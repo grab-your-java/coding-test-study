@@ -1,5 +1,6 @@
 package SWEA_2382_미생물격리;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -8,7 +9,7 @@ public class Solution {
 	// _, 상, 하, 좌, 우
 	static int[] dx = { 0, 0, 0, -1, 1 };
 	static int[] dy = { 0, -1, 1, 0, 0 };
-	static Queue<Group>[][] CELL;
+	static Queue<Bacteria>[][] cells;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -18,55 +19,58 @@ public class Solution {
 			int N = sc.nextInt();
 			int TIME = sc.nextInt();
 			int TOTAL = sc.nextInt();
+			sc.nextLine();
 
 			// initialize cell
-			CELL = new LinkedList[N][N];
+			cells = new LinkedList[N][N];
 			for (int y = 0; y < N; y++) {
 				for (int x = 0; x < N; x++) {
-					CELL[y][x] = new LinkedList<Group>();
+					cells[y][x] = new LinkedList<Bacteria>();
 				}
 			}
 
-			// add Group
-			Group[] GROUPS = new Group[TOTAL];
+			// add bacteria
+			Bacteria[] bacterium = new Bacteria[TOTAL];
 			for (int i = 0; i < TOTAL; i++) {
-				int y = sc.nextInt(), x = sc.nextInt(), count = sc.nextInt(), direction = sc.nextInt();
-				Group group = new Group(y, x, count, direction);
-				GROUPS[i] = group;
+				// [ y, x, count, direction ]
+				int[] inputs = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+				Bacteria bacteria = new Bacteria(i, inputs[0], inputs[1], inputs[2], inputs[3]);
+				bacterium[i] = bacteria;
 			}
 
 			while (TIME-- > 0) {
-				// Move groups
-				for (Group group : GROUPS) {
-					group.move();
+				// Move bacterium
+				for (Bacteria bacteria: bacterium) {
+					bacteria.move();
 				}
 
 				// Fight
 				for (int y = 0; y < N; y++) {
 					for (int x = 0; x < N; x++) {
-						Queue<Group> queue = CELL[y][x];
-						if (queue.isEmpty()) {
+						Queue<Bacteria> q = cells[y][x];
+						if (q.isEmpty()) {
 							continue;
 						}
-						
-						Group group = queue.poll();
-						while (queue.size() > 0) {
-							group = Group.fight(group, queue.poll());
+
+						Bacteria bacteria = q.poll();
+						while (q.size() > 0) {
+							System.out.print("[ " + y + ", " + x + " ]에서 ");
+							bacteria = Bacteria.fight(bacteria, q.poll());
 						}
 
 					}
 				}
-				
-//				System.out.println("---------------------");
-//				for (Group group : GROUPS) {
-//					System.out.println(group);
+
+				System.out.println("---------------------");
+//				for (Bacteria bacteria : bacterium) {
+//					System.out.println(bacteria);
 //				}
 //				System.out.println("---------------------");
 
 			}
 
-			for (Group group : GROUPS) {
-				result += group.count;
+			for (Bacteria bacteria : bacterium) {
+				result += bacteria.count;
 			}
 
 			System.out.println("#" + t + " " + result);
@@ -74,18 +78,20 @@ public class Solution {
 
 	}
 
-	static class Group {
-		int y, x, count, direction;
+	static class Bacteria {
+		int index, y, x, count, direction;
 
-		Group(int y, int x, int count, int direction) {
+		Bacteria(int index, int y, int x, int count, int direction) {
+			this.index = index;
 			this.y = y;
 			this.x = x;
 			this.count = count;
 			this.direction = direction;
 		}
 
-		void eat(Group group) {
-			this.count += group.count;
+		void eat(Bacteria bacteria) {
+			this.count += bacteria.count;
+			bacteria.count = 0;
 		}
 
 		void move() {
@@ -93,15 +99,16 @@ public class Solution {
 			if (this.count == 0) {
 				return;
 			}
-			
+			System.out.print(this + "는 [ " + y + ", " + x + " ] 에서 ");
 			y += dy[this.direction];
 			x += dx[this.direction];
-			
-			if (y == 0 || y == CELL.length - 1 || x == 0 || x == CELL.length - 1) {
+			System.out.println("[ " + y + ", " + x + " ] 로 이동");
+
+			if (y == 0 || y == cells.length - 1 || x == 0 || x == cells.length - 1) {
 				this.inDanger();
 			}
 
-			CELL[y][x].add(this);
+			cells[y][x].add(this);
 		}
 
 		void inDanger() {
@@ -109,7 +116,8 @@ public class Solution {
 			if (this.count == 0) {
 				return;
 			}
-			
+
+			System.out.println("하지만 [ " + y + ", " + x + " ]에서 위험");
 			this.count /= 2;
 			switch (this.direction) {
 			case 1:
@@ -129,23 +137,24 @@ public class Solution {
 			}
 		}
 
-		static Group fight(Group a, Group b) {
+		static Bacteria fight(Bacteria a, Bacteria b) {
+			System.out.println(a + " vs " + b);
 			if (a.count > b.count) {
 				a.eat(b);
-				b.count = 0;
-				
+
 				return a;
 			} else {
 				b.eat(a);
-				a.count = 0;
-				
+
 				return b;
 			}
 		}
-		
-//		public String toString() {
-//			return this.hashCode() + "(" + this.count + "), [ " + y + ", " + x + " ]" ;
-//		}
+
+		@Override
+		public String toString() {
+			return "Bacteria(" + (this.index + 1) + ")" + " [y=" + y + ", x=" + x + ", count=" + count + ", direction="
+					+ direction + "]";
+		}
 
 	}
 }
