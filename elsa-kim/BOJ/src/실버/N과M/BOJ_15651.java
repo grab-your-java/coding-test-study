@@ -3,7 +3,7 @@ package 실버.N과M;
 import java.util.Scanner;
 
 //N과 M (3)
-public class BOJ_156651 {
+public class BOJ_15651 {
 	static int n;
 	static int m;
 	static int[] arr;
