@@ -55,7 +55,7 @@ public class Main {
 	static boolean unique(String[] sequence) {
 		String key = "";
 		for (String num : sequence) {
-			key += num;
+			key += num + "-";
 		}
 
 		Boolean exist = sequenceMap.get(key);
