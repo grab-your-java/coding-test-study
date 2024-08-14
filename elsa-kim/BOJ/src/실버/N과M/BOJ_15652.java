@@ -1,19 +1,18 @@
-package 실버;
+package 실버.N과M;
 
 import java.util.Scanner;
 
-//N과 M (2) - 조합
-public class BOJ_15650 {
+public class BOJ_15652 {
 	static int n;
 	static int m;
 	static int[] arr;
 	static StringBuffer sb = new StringBuffer();
 	
-	public static void com(int cnt, int start) {
+	public static void per(int cnt, int start) {
 		if(cnt == m) {
-			for(int i=0; i<arr.length; i++) {
+			for(int i=0; i<m; i++) {
 				sb.append(arr[i]);
-				if(i!=arr.length-1) {
+				if(i != m-1) {
 					sb.append(" ");
 				}
 			}
@@ -22,8 +21,9 @@ public class BOJ_15650 {
 		}
 		for(int i=start; i<=n; i++) {
 			arr[cnt] = i;
-			com(cnt+1, i+1);
+			per(cnt+1, i);
 		}
+		
 	}
 	
 	public static void main(String[] args) {
@@ -32,8 +32,7 @@ public class BOJ_15650 {
 		m = sc.nextInt();
 		arr = new int[m];
 		
-		com(0, 1);
+		per(0, 1);
 		System.out.println(sb);
-		
 	}
 }

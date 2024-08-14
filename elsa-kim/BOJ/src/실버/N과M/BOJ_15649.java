@@ -1,4 +1,4 @@
-package 실버;
+package 실버.N과M;
 
 import java.util.Scanner;
 // N과 M (1)
