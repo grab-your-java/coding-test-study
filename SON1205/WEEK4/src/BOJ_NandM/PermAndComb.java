@@ -6,12 +6,12 @@ import java.util.List;
 public class PermAndComb {
     public static void main(String[] args) {
         //초기 값 설정
-        int N = 3;
+        int N = 100;
         int[] input = new int[N];
         for (int i = 0; i < N; i++) {
             input[i] = i + 1;
         }
-        int r = 2;
+        int r = 4;
 
         //순열, 중복 X, 결과값을 배열 또는 리스트로 뽑아 비교하기
         long start1 = System.nanoTime();
@@ -28,12 +28,12 @@ public class PermAndComb {
         System.out.println("time2 = " + (end2 - start2));
 
         //순열, 중복 O, 결과값을 배열로
-        permutationPi(input, new int[r], 0, r);
+//        permutationPi(input, new int[r], 0, r);
 
         //조합, 중복 X, 결과값을 배열로
-        combination(input, new boolean[input.length], 0, 0, r);
+//        combination(input, new boolean[input.length], 0, 0, r);
 
-        combinationH(input, new int[r], 0, 0, r);
+//        combinationH(input, new int[r], 0, 0, r);
     }
 
     static void permutationByArr(int[] input, int[] output, boolean[] visited, int depth, int r) {
