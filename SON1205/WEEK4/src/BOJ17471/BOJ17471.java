@@ -26,8 +26,6 @@ public class BOJ17471 {
         }
 
         boolean[] visited = new boolean[N];
-
-
     }
 
 
