@@ -1,4 +1,4 @@
-package SWEA_4012_요리사;
+package SWEA4012;
 
 import java.util.ArrayList;
 import java.util.List;
