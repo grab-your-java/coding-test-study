@@ -48,7 +48,7 @@ public class SWEA_벽돌깨기 {
 			if (i + k < height && map[i + k][j] > 0) {
 				breakBrick(map, height, width, i + k, j);
 			}
-			// 좌
+			// 좌..
 			if (j - k >= 0 && map[i][j - k] > 0) {
 				breakBrick(map, height, width, i, j - k);
 			}
