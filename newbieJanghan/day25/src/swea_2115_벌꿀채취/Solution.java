@@ -1,6 +1,5 @@
 package swea_2115_벌꿀채취;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Solution {
@@ -26,19 +25,20 @@ public class Solution {
 	static class ProfitCalculator {
 		int[] profits;
 		int profitLimit;
-		int maxProfit;
+		int maxProfit = 0;
 
-		ProfitCalculator(int[] profits, int profitLimit) {
-			this.profits = profits;
+		ProfitCalculator(int profitLimit) {
 			this.profitLimit = profitLimit;
 		}
 
-		int exec() {
+		int exec(int[] profits) {
+			this.profits = profits;
+
 			dfs(0, 0, 0);
 			return maxProfit;
 		}
 
-		void dfs(int start, int acc, int result) {
+		private void dfs(int start, int acc, int result) {
 			if (start == profits.length) {
 				return;
 			}
@@ -58,7 +58,6 @@ public class Solution {
 		int[][] honeys;
 		int harvestSize;
 		int profitLimit;
-
 		int totalProfit = 0;
 
 		HoneyHarvest(int[][] honeys, int M, int C) {
@@ -71,15 +70,15 @@ public class Solution {
 		int exec() {
 			for (int r = 0; r < N; r++) {
 				for (int c = 0; c + harvestSize <= N; c++) {
-					
+					ProfitCalculator calculator = new ProfitCalculator(profitLimit);
+
 					// 1. pick A
 					int[] partA = new int[harvestSize];
 					for (int i = 0; i < harvestSize; i++) {
 						partA[i] = honeys[r][c + i];
 					}
 
-					int aProfit = new ProfitCalculator(partA, profitLimit).exec();
-					System.out.println("partA " + Arrays.toString(partA) + " 's profit: " + aProfit);
+					int aProfit = calculator.exec(partA);
 
 					// 2. picking B
 					int nr = r;
@@ -94,9 +93,8 @@ public class Solution {
 						for (int i = 0; i < harvestSize; i++) {
 							partB[i] = honeys[nr][nc + i];
 						}
-						
-						int bProfit = new ProfitCalculator(partB, profitLimit).exec();
-						System.out.println("partB " + Arrays.toString(partB) + " 's profit: " + bProfit);
+
+						int bProfit = calculator.exec(partB);
 						totalProfit = Math.max(totalProfit, aProfit + bProfit);
 
 						nc++;
