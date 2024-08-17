@@ -3,70 +3,74 @@ package dfsAndBfs;
 import java.util.*;
 
 public class BOJ1260 {
-    static boolean[] visited;
-    static List<List<Integer>> graph = new ArrayList<>();
-
-    static void dfs(int i) {
-        visited[i] = true;
-        System.out.print(i + " ");
-
-        for (int j = 0; j < graph.get(i).size(); j++) {
-            if (!visited[graph.get(i).get(j)]) {
-                visited[graph.get(i).get(j)] = true;
-                dfs(graph.get(i).get(j));
-            }
-        }
-    }
-
-    static void bfs(int i) {
-        Deque<Integer> queue = new ArrayDeque<>();
-        queue.offer(i);
-        visited[i] = true;
-
-        while (!queue.isEmpty()) {
-            int x = queue.poll();
-            System.out.print(x + " ");
-            for (int j = 0; j < graph.get(x).size(); j++) {
-                int next = graph.get(x).get(j);
-                if (!visited[next]) {
-                    queue.offer(next);
-                    visited[next] = true;
-                }
-            }
-        }
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int N = sc.nextInt();
+        N = sc.nextInt();
         int M = sc.nextInt();
+
         int V = sc.nextInt();
 
-        for (int i = 0; i < N + 1; i++) {
-            graph.add(new ArrayList<>());
+        adjList = new ArrayList<>();
+
+        for (int i = 0; i <= N; i++) {
+            adjList.add(new ArrayList<>());
         }
 
         for (int i = 0; i < M; i++) {
             int u = sc.nextInt();
             int v = sc.nextInt();
 
-            graph.get(u).add(v);
-            graph.get(v).add(u);
+            adjList.get(u).add(v);
+            adjList.get(v).add(u);
         }
 
-        for (int i = 1; i < N + 1; i++) {
-            Collections.sort(graph.get(i));
+        for (int i = 1; i <= N; i++) {
+            Collections.sort(adjList.get(i));
         }
-
-        System.out.println(graph);
 
         visited = new boolean[N + 1];
         dfs(V);
-
         System.out.println();
 
         visited = new boolean[N + 1];
         bfs(V);
+        System.out.println();
+    }
+
+    static int N;
+    static List<List<Integer>> adjList;
+    static boolean[] visited;
+
+    static void dfs(int V) {
+        visited[V] = true;
+        System.out.print(V + " ");
+
+        for (int i = 0; i < adjList.get(V).size(); i++) {
+            int tmp = adjList.get(V).get(i);
+            if (visited[tmp]) {
+                continue;
+            }
+
+            dfs(tmp);
+        }
+    }
+
+    static void bfs(int V) {
+        Deque<Integer> q = new ArrayDeque<>();
+        q.offer(V);
+
+        while (!q.isEmpty()) {
+            int tmp = q.poll();
+            visited[tmp] = true;
+            System.out.print(tmp + " ");
+
+            for (int i = 0; i < adjList.get(tmp).size(); i++) {
+                if (!visited[adjList.get(tmp).get(i)]) {
+                    visited[adjList.get(tmp).get(i)] = true;
+                    q.offer(adjList.get(tmp).get(i));
+                }
+            }
+        }
     }
 }
