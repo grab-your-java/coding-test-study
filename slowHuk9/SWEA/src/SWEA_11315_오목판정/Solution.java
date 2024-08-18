@@ -1,6 +1,4 @@
 package SWEA_11315_오목판정;
-
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Solution {
@@ -31,11 +29,8 @@ public class Solution {
 			}else {
 				System.out.println("#" + test_case + " NO");
 			}
-			
 		}
-
 	}
-
 	static boolean rowCheck() {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N - 4; j++) {
