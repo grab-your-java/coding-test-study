@@ -1,49 +1,36 @@
 package swea_2817_부분_수열의_합;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Solution {
+    static int N, K, count;
+    static int[] numbers;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int T = Integer.parseInt(sc.nextLine());
         for (int t = 1; t <= T; t++) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("#" + t + " ");
-            int[] constraints = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-            int sumGoal = constraints[1];
-            int[] numbers = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            N = sc.nextInt();
+            K = sc.nextInt();
+            numbers = new int[N];
+            for (int i = 0; i < N; i++) {
+                numbers[i] = sc.nextInt();
+            }
 
-            sb.append(PartialSum.getGoalCount(numbers, sumGoal));
-            System.out.println(sb);
+            dfs(0, 0);
+            System.out.println("#" + t + " " + count);
         }
     }
 
-    static class PartialSum {
-        static int[] NUMBERS;
-        static int GOAL;
-        static int GOAL_COUNT;
-
-        static int getGoalCount(int[] numbers, int goal) {
-            NUMBERS = numbers;
-            GOAL = goal;
-            GOAL_COUNT = 0;
-
-            dfs(0, 0);
-            return GOAL_COUNT;
+    static void dfs(int start, int acc) {
+        if (acc == K) {
+            count++;
+            return;
         }
 
-        static void dfs(int start, int acc) {
-            if (acc == GOAL) {
-                GOAL_COUNT++;
-
-                return;
-            }
-
-            for (int i = start; i < NUMBERS.length; i++) {
-                if (acc + NUMBERS[i] <= GOAL) {
-                    dfs(i + 1, acc + NUMBERS[i]);
-                }
+        for (int i = start; i < numbers.length; i++) {
+            if (acc + numbers[i] <= K) {
+                dfs(i + 1, acc + numbers[i]);
             }
         }
     }
