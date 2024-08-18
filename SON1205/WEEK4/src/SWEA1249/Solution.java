@@ -56,11 +56,9 @@ public class Solution {
 
                 int cnt = result[tmp[0]][tmp[1]] + map[nx][ny];
 
-                if (visited[nx][ny]) {
-                    if (result[nx][ny] > cnt) {
-                        result[nx][ny] = cnt;
-                        queue.offer(new int[]{nx, ny});
-                    }
+                if (visited[nx][ny] && result[nx][ny] > cnt) {
+                    result[nx][ny] = cnt;
+                    queue.offer(new int[]{nx, ny});
                     continue;
                 }
 
