@@ -18,7 +18,7 @@ public class SWEA_벽돌깨기 {
 				}
 			}
 
-			breakBrick(map, height, width, 2, 2);
+			breakBrick(map, height, width, 2, 2); 
 
 			for (int i = 0; i < height; i++) {
 				for (int j = 0; j < width; j++) {
