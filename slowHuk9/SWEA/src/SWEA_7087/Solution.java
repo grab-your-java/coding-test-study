@@ -1,6 +1,5 @@
 package SWEA_7087;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Solution {
