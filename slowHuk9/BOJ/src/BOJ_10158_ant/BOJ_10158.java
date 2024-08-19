@@ -3,7 +3,6 @@ package BOJ_10158_ant;
 import java.util.Scanner;
 
 public class BOJ_10158 {
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
