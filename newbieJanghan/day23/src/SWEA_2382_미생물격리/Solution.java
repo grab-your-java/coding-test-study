@@ -1,15 +1,14 @@
 package SWEA_2382_미생물격리;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Solution {
 	// _, 상, 하, 좌, 우
 	static int[] dx = { 0, 0, 0, -1, 1 };
 	static int[] dy = { 0, -1, 1, 0, 0 };
-	static Queue<Bacteria>[][] cells;
+	static PriorityQueue<Bacteria>[][] cells;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -22,10 +21,10 @@ public class Solution {
 			sc.nextLine();
 
 			// initialize cell
-			cells = new LinkedList[N][N];
+			cells = new PriorityQueue[N][N];
 			for (int y = 0; y < N; y++) {
 				for (int x = 0; x < N; x++) {
-					cells[y][x] = new LinkedList<Bacteria>();
+					cells[y][x] = new PriorityQueue<Bacteria>((a,b) -> b.count - a.count);
 				}
 			}
 
@@ -47,26 +46,18 @@ public class Solution {
 				// Fight
 				for (int y = 0; y < N; y++) {
 					for (int x = 0; x < N; x++) {
-						Queue<Bacteria> q = cells[y][x];
+						PriorityQueue<Bacteria> q = cells[y][x];
 						if (q.isEmpty()) {
 							continue;
 						}
-
+						
 						Bacteria bacteria = q.poll();
 						while (q.size() > 0) {
-							System.out.print("[ " + y + ", " + x + " ]에서 ");
 							bacteria = Bacteria.fight(bacteria, q.poll());
 						}
 
 					}
 				}
-
-				System.out.println("---------------------");
-//				for (Bacteria bacteria : bacterium) {
-//					System.out.println(bacteria);
-//				}
-//				System.out.println("---------------------");
-
 			}
 
 			for (Bacteria bacteria : bacterium) {
@@ -99,10 +90,8 @@ public class Solution {
 			if (this.count == 0) {
 				return;
 			}
-			System.out.print(this + "는 [ " + y + ", " + x + " ] 에서 ");
 			y += dy[this.direction];
 			x += dx[this.direction];
-			System.out.println("[ " + y + ", " + x + " ] 로 이동");
 
 			if (y == 0 || y == cells.length - 1 || x == 0 || x == cells.length - 1) {
 				this.inDanger();
@@ -116,8 +105,7 @@ public class Solution {
 			if (this.count == 0) {
 				return;
 			}
-
-			System.out.println("하지만 [ " + y + ", " + x + " ]에서 위험");
+			
 			this.count /= 2;
 			switch (this.direction) {
 			case 1:
@@ -129,16 +117,13 @@ public class Solution {
 			case 3:
 				this.direction = 4;
 				break;
-			case 4:
-				this.direction = 3;
-				break;
 			default:
+				this.direction = 3;
 				break;
 			}
 		}
 
 		static Bacteria fight(Bacteria a, Bacteria b) {
-			System.out.println(a + " vs " + b);
 			if (a.count > b.count) {
 				a.eat(b);
 
@@ -148,12 +133,6 @@ public class Solution {
 
 				return b;
 			}
-		}
-
-		@Override
-		public String toString() {
-			return "Bacteria(" + (this.index + 1) + ")" + " [y=" + y + ", x=" + x + ", count=" + count + ", direction="
-					+ direction + "]";
 		}
 
 	}
