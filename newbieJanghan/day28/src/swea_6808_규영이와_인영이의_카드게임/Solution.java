@@ -1,59 +1,66 @@
 package swea_6808_규영이와_인영이의_카드게임;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Solution {
-	static boolean[] picked;
-	static Queue<Integer> queue;
-	static int winCaseCnt = 0;
-	static int loseCaseCnt = 0;
+	static int[] myCards;
+	static int[] opCards;
+	static boolean[] opThrowed;
+
+	static int winCaseCnt;
+	static int loseCaseCnt;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int T = sc.nextInt();
 		for (int t = 1; t <= T; t++) {
-			picked = new boolean[19]; // false indices are the other side numbers
-			queue = new LinkedList<Integer>();
+			boolean[] picked = new boolean[19];
+			myCards = new int[9];
+			opCards = new int[9];
 
-			int count = 9;
-			while (count-- > 0) {
-				int num = sc.nextInt();
-				queue.add(num);
-				picked[num] = true;
+			for (int i = 0; i < myCards.length; i++) {
+				int number = sc.nextInt();
+				myCards[i] = number;
+				picked[number] = true;
 			}
-			
-			dfs(0, 0);
+			for (int number = 1, i = 0; number <= 19 && i < opCards.length; number++) {
+				if (!picked[number]) {
+					opCards[i++] = number;
+				}
+			}
+
+			opThrowed = new boolean[19];
+			winCaseCnt = 0;
+			loseCaseCnt = 0;
+			dfs(0, 0, 0);
+			System.out.println("#" + t + " " + winCaseCnt + " " + loseCaseCnt);
 		}
 	}
 
-	static void dfs(int scoreA, int scoreB) {
-		if (queue.isEmpty()) {
-			if (scoreA < scoreB) {
+	static void dfs(int round, int scoreA, int scoreB) {
+		if (round == 9) {
+			if (scoreA > scoreB) {
 				winCaseCnt++;
-			} else if (scoreA > scoreB) {
+			} else if (scoreA < scoreB) {
 				loseCaseCnt++;
 			}
 			return;
 		}
 
-		int aNumber = queue.poll();
-		for (int bNumber = 1; bNumber <= 18; bNumber++) {
-			if (picked[bNumber]) {
+		for (int i = 0; i < opCards.length; i++) {
+			int opNum = opCards[i];
+			if (opThrowed[opNum]) {
 				continue;
 			}
-			
-			System.out.println(aNumber + " vs " + bNumber);
+			int myNum = myCards[round];
 
-			picked[bNumber] = true;
-			if (aNumber > bNumber) {
-				dfs(scoreA + aNumber + bNumber, scoreB);
+			opThrowed[opNum] = true;
+			if (myNum > opNum) {
+				dfs(round + 1, scoreA + myNum + opNum, scoreB);
 			} else {
-				dfs(scoreA, scoreB + aNumber + bNumber);
+				dfs(round + 1, scoreA, scoreB + myNum + opNum);
 			}
-
-			picked[bNumber] = false;
+			opThrowed[opNum] = false;
 		}
 	}
 }
