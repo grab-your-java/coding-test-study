@@ -1,5 +1,7 @@
 package SWEA_7272;
 
+import java.util.Scanner;
+
 public class test {
 	public static void main(String[] args) {
 		char ch = 'E';
@@ -11,5 +13,10 @@ public class test {
 		char ch3= 'C';
 		int num3 = (int) ch3;
 		System.out.println(num3);
+		
+		Scanner sc = new Scanner(System.in);
+		
+		String s = sc.next();
+		System.out.println(s);
 	}
 }
