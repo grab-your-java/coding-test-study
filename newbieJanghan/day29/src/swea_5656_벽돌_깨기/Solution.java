@@ -5,75 +5,115 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Solution {
-	static int chanceCnt, width, height, maxRemains;
-	static ArrayList<Integer>[] map;
-	static ArrayList<Integer>[][] snapshots;
-	static boolean[] visitedColumn;
+	static int attackCnt, width, height, minRemains;
+	static List<Integer>[] map;
+	static int[] attackTargets;
+	static List<int[]> attackSequences;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		chanceCnt = sc.nextInt(); // N
-		width = sc.nextInt();
-		height = sc.nextInt();
+		int T = sc.nextInt();
+		for (int t = 1; t <= T; t++) {
+			attackCnt = sc.nextInt(); // N
+			width = sc.nextInt(); // W
+			height = sc.nextInt(); // H
 
-		map = new ArrayList[width];
-		visitedColumn = new boolean[width];
-
-		snapshots = new ArrayList[chanceCnt][width];
-		maxRemains = 0;
-		for (int r = 0; r < height; r++) {
+			map = new ArrayList[width];
 			for (int c = 0; c < width; c++) {
-				int inputNum = sc.nextInt();
-				if (inputNum != 0) {
-					map[c].add(0, inputNum);
-					maxRemains++;
+				map[c] = new ArrayList<>();
+			}
+
+			minRemains = 0;
+			for (int r = 0; r < height; r++) {
+				for (int c = 0; c < width; c++) {
+					int inputNum = sc.nextInt();
+					if (inputNum != 0) {
+						map[c].add(0, inputNum);
+						minRemains++;
+					}
 				}
 			}
-		}
 
-		dfs(0, maxRemains);
+			attackTargets = new int[width];
+			for (int i = 0; i < width; i++) {
+				attackTargets[i] = i;
+			}
+
+			attack(new int[attackCnt], 0);
+			System.out.println("#" + t + " " + minRemains);
+		}
 	}
 
-	static void dfs(int change, int remains) {
-		if (change == chanceCnt) {
-			maxRemains = Math.max(maxRemains, remains);
+	static void attack(int[] sequence, int depth) {
+		if (depth == attackCnt) {
+			List<Integer>[] newMap = deepCopy(map);
+			for (int i = 0; i < sequence.length; i++) {
+				int columnIdx = sequence[i];
+				if (newMap[columnIdx].size() == 0) {
+					break;
+				}
 
+				mark(newMap, columnIdx, newMap[columnIdx].size() - 1);
+				boom(newMap);
+			}
+
+			int remains = 0;
+			for (List<Integer> col : newMap) {
+				remains += col.size();
+			}
+
+			minRemains = Math.min(minRemains, remains);
 			return;
 		}
 
-		// if possible, choose biggest column
-		List<Integer>[] snapshot = map.clone();
-		for (int c = 0; c < width; c++) {
-			if (!visitedColumn[c]) {
-				List<Integer> target = snapshot[c];
-				int lastIdx = target.size() - 1;
-				int bombArea = target.get(lastIdx);
-				target.remove(lastIdx);
-
-			}
+		for (int i = 0; i < attackTargets.length; i++) {
+			sequence[depth] = i;
+			attack(sequence, depth + 1);
 		}
-
 	}
 
-	static void bomb(List<Integer>[] snapshot, int column, int lastIdx, int area) {
-		List<Integer> bricks = snapshot[column];
+	static List<Integer>[] deepCopy(List<Integer>[] map) {
+		List<Integer>[] newMap = new ArrayList[map.length];
+		for (int i = 0; i < map.length; i++) {
+			newMap[i] = new ArrayList<>(map[i]);
+		}
+
+		return newMap;
+	}
+
+	static void mark(List<Integer>[] map, int column, int lastIdx) {
+		List<Integer> bricks = map[column];
 		if (bricks.size() <= lastIdx) {
 			return;
 		}
-		
+
 		int bombArea = bricks.get(lastIdx);
-		if (bombArea == 0) {
-			return;
+		bricks.set(lastIdx, 0);
+
+		// right
+		for (int nc = column + 1; nc < width && nc < (column + bombArea); nc++) {
+			mark(map, nc, lastIdx);
 		}
-		
-		bricks.remove(lastIdx);
 
 		// left
-		for (int i = column; i > (column - area); column--) {
-
+		for (int nc = column - 1; nc >= 0 && nc > (column - bombArea); nc--) {
+			mark(map, nc, lastIdx);
 		}
-		// right
+
+		// up
+		for (int nr = lastIdx + 1; nr < height && nr < (lastIdx + bombArea); nr++) {
+			mark(map, column, nr);
+		}
 
 		// down
+		for (int nr = lastIdx - 1; nr >= 0 && nr > (lastIdx - bombArea); nr--) {
+			mark(map, column, nr);
+		}
 	}
+	
+	static void boom(List<Integer>[] map) {
+		for (int i=0; i<map.length; i++) {
+			map[i].removeIf((area) -> area == 0);
+		}
+ 	}
 }
