@@ -10,7 +10,7 @@ public class Solution {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-
+		// 갤럭시북4 프로 샀지롱 테스트지롱
 		T = sc.nextInt();
 		for (int test_case = 1; test_case <= T; test_case++) {
 			N = sc.nextInt();
