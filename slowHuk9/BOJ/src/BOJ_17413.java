@@ -1,8 +1,4 @@
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class BOJ_17413 {
@@ -12,31 +8,33 @@ public class BOJ_17413 {
 		Scanner sc = new Scanner(System.in);
 		String s = sc.nextLine();
 		StringBuilder sb = new StringBuilder();
-		StringBuilder result = new StringBuilder();
-		char[] word = s.toCharArray();
-		// 열린 꺽쇄 시작일 때
-		int idx = 0;
-		if (word[0] == '<') {
-			while (idx < word.length - 1 && word[idx] != '>') {
-				System.out.println("idx :" + idx + "word[idx] : " + word[idx]);
-				sb.append(word[idx]);
-				idx++;
+		ArrayDeque<Character> deque = new ArrayDeque<>();
+
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == '<') {
+				int j = i;
+				while (s.charAt(j) != '>') {
+					sb.append(s.charAt(j));
+					j++;
+				}
+				sb.append('>');
+				i = j;
+			} else if (s.charAt(i) == ' ') {
+				sb.append(" ");
+			} else {
+				int j = i;
+				while (j < s.length() && s.charAt(j) != ' ' && s.charAt(j) != '<') {
+					deque.addLast(s.charAt(j));
+					j++;
+				}
+				int k = deque.size();
+				for (int q = 0; q < k; q++) {
+					sb.append(deque.pollLast());
+				}
+				i = j - 1;
 			}
-			idx++;
-			sb.append('>');
-			result.append(sb);
-			sb.delete(0, idx+1);
-			System.out.println(result);
-			System.out.println("sb 지우기 확인 :" + sb);
-		} else {
-			while (idx < word.length - 1 && word[idx] != ' ' || idx < word.length - 1 && word[idx] != '<') {
-				sb.append(word[idx]);
-				idx++;
-			}
-			sb.reverse();
-			result.append(sb);
-			sb.delete(0, idx+1);
-			System.out.println(result);
 		}
+
+		System.out.println(sb.toString());
 	}
 }
