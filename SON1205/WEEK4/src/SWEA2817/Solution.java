@@ -39,6 +39,10 @@ public class Solution {
                 if (visited[i]) {
                     sum += input[i];
                 }
+
+                if (sum > k) {
+                    return;
+                }
             }
 
             if (sum == k) {
