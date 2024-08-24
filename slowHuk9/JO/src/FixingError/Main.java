@@ -34,7 +34,9 @@ public class Main {
 		if (rowParity && colParity) {
 			System.out.println("OK");
 		}else if (targetRow != -1 && targetCol != -1) {
+
 			System.out.println("Change bit (" + (targetRow+1) + "," + (targetCol+1) + ")"); 
+
 		}
 		else {
 			System.out.println("Corrupt");
@@ -62,7 +64,10 @@ public class Main {
 				sum += map[i][j];
 			}
 			if (sum % 2 == 0)
+
 				colSum[j] = true;
+
+
 		}
 	}
 
@@ -99,4 +104,3 @@ public class Main {
 			colParity = true;
 	}
 }
-
