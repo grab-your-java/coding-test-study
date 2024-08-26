@@ -59,7 +59,10 @@ public class Main {
 				sum += map[i][j];
 			}
 			if (sum % 2 == 0)
+
 				colSum[j] = true;
+
+
 		}
 	}
 
