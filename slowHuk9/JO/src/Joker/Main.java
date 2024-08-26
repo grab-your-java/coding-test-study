@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
+		
 		Scanner sc = new Scanner(System.in);
 		int[] numbers = new int[1000001];
 		int N = sc.nextInt();
