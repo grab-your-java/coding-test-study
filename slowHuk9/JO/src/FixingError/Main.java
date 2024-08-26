@@ -33,14 +33,11 @@ public class Main {
 
 		if (rowParity && colParity) {
 			System.out.println("OK");
-		}else if (targetRow != -1 && targetCol != -1) {
-			System.out.println("Change bit (" + (targetRow+1) + "," + (targetCol+1) + ")"); 
-		}
-		else {
+		} else if (targetRow != -1 && targetCol != -1) {
+			System.out.println("Change bit (" + (targetRow + 1) + "," + (targetCol + 1) + ")");
+		} else {
 			System.out.println("Corrupt");
 		}
-		
-		
 
 	}
 
@@ -99,4 +96,3 @@ public class Main {
 			colParity = true;
 	}
 }
-
