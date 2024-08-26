@@ -9,25 +9,45 @@ public class SWEA7272 {
 		int T = sc.nextInt();
 		
 		for (int tc = 1; tc <= T; tc++) {
-			int N = sc.nextInt();
+			String input1 = sc.next();
+			String input2 = sc.next();
 			
-			char[] alphabet = new char[26];
+			boolean isSame = true;
 			
-			for (int i = 0; i < N; i++) {
-				alphabet[sc.next().charAt(0) - 'A']++;
-			}
-			
-			int result = 0;
-			
-			for (int i = 0; i < alphabet.length; i++) {
-				if (alphabet[i] <= 0) {
-					break;
+			if (input1.length() != input2.length()) {
+				isSame = false;
+			} else {
+				for (int i = 0; i < input1.length(); i++) {
+					if (checkingChar(input1.charAt(i)) != checkingChar(input2.charAt(i))) {
+						isSame = false;
+						break;
+					}
 				}
-				
-				result = i + 1;
 			}
 			
-			System.out.println("#" + tc + " " + result);
+			if (isSame) {
+				System.out.println("#" + tc + " SAME");
+			} else {
+				System.out.println("#" + tc + " DIFF");
+			}
+		}	
+	}
+	
+	static int checkingChar(char input) {
+		int result = 0;
+		
+		switch (input) {
+		case 'B':
+			return result += 2;
+		case 'A':
+		case 'D':
+		case 'O':
+		case 'P':
+		case 'Q':
+		case 'R':
+			return result += 1;	
 		}
+		
+		return result;
 	}
 }

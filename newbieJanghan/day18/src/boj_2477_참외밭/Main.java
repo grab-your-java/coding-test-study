@@ -51,6 +51,7 @@ public class Main {
 		int smallArea = Math.abs(maxHeight.prev.length - maxHeight.next.length)
 				* Math.abs(maxWidth.prev.length - maxWidth.next.length);
 
+
 		System.out.println(K * (largeArea - smallArea));
 	}
 
@@ -65,3 +66,4 @@ public class Main {
 
 	}
 }
+
