@@ -9,7 +9,8 @@ public class Solution {
 	static boolean[][] cells;
 	static boolean[][] paved;
 	static List<int[]> cores;
-	static int[] lenByCoreCnt;
+	static int maxCoreCnt;
+	static int minLen;
 
 	static int[] dr = { -1, 0, 1, 0 };
 	static int[] dc = { 0, 1, 0, -1 };
@@ -32,24 +33,29 @@ public class Solution {
 				}
 			}
 
-			lenByCoreCnt = new int[cores.size() + 1];
+			maxCoreCnt = 0;
+			minLen = Integer.MAX_VALUE;
 			dfs(0, 0, 0);
-			for (int i = cores.size(); i > 0; i--) {
-				if (lenByCoreCnt[i] > 0) {
-					System.out.println("#" + t + " " + lenByCoreCnt[i]);
-					break;
-				}
-			}
-
+			
+			System.out.println("#" + t + " " + minLen);
 		}
 	}
 
 	static void dfs(int index, int accLen, int coreCnt) {
 		if (index == cores.size()) {
-			if (lenByCoreCnt[coreCnt] == 0 || lenByCoreCnt[coreCnt] > accLen) {
-				lenByCoreCnt[coreCnt] = accLen;
+			if (coreCnt > maxCoreCnt) {
+				maxCoreCnt = coreCnt;
+				minLen = accLen;
+			} else if (coreCnt == maxCoreCnt && minLen > accLen) {
+				minLen = accLen;
 			}
 
+			return;
+		}
+		
+		// supposing remain cores are be able to connected but cannot reach maxCoreCnt
+		// there's no need to search
+		if (coreCnt + cores.size() - index < maxCoreCnt) {
 			return;
 		}
 
@@ -62,11 +68,11 @@ public class Solution {
 			for (int d = 0; d < dr.length; d++) {
 				int nr = r + dr[d], nc = c + dc[d];
 				int curLen = 0;
-				boolean connected = true; // suppose this core is connected
+				int curCoreCnt = coreCnt + 1; // suppose this core is connected
 				while (nr >= 0 && nr < N && nc >= 0 && nc < N) {
 					if (paved[nr][nc]) {
 						curLen = 0;
-						connected = false;
+						curCoreCnt--; // connect fail
 						break;
 					}
 
@@ -75,8 +81,8 @@ public class Solution {
 					nr += dr[d];
 					nc += dc[d];
 				}
-
-				dfs(index + 1, accLen + curLen, coreCnt + (connected ? 1 : 0));
+				
+				dfs(index + 1, accLen + curLen, curCoreCnt);
 
 				// roll back
 				nr -= dr[d];
