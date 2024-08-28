@@ -6,7 +6,7 @@ public class DFS_BOJ_11403 {
 
 	static int[][] map;
 	static int n;
-	static boolean[][] visited; // false
+	static boolean[][] visited; // false 
 	static int[][] resultmap;
 
 	public static void main(String[] args) {
@@ -15,7 +15,7 @@ public class DFS_BOJ_11403 {
 
 		map = new int[n][n];
 		visited = new boolean[n][n];
-
+		
 		resultmap = new int[n][n];
 
 		for (int i = 0; i < n; i++) {
