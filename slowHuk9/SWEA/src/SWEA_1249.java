@@ -24,7 +24,7 @@ public class SWEA_1249 {
 				String s = sc.next();
 				for (int j = 0; j < map.length; j++) {
 					map[i][j] = s.charAt(j) - '0';
-					dijkstra[i][j] = Integer.MAX_VALUE;
+					dijkstra[i][j] = 90000;
 				}
 			}
 			int result = bfs();

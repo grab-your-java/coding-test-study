@@ -34,13 +34,7 @@ public class SWEA_4615 {
 				int x = sc.nextInt() - 1;
 				int y = sc.nextInt() - 1;
 				int stoneColor = sc.nextInt();
-				play(y, x, stoneColor);
-				System.out.println();
-				for (int j = 0; j < N; j++) {
-					for (int k = 0; k < N; k++) {
-						System.out.print(map[j][k] + " ");
-					}System.out.println();
-				}
+				dfs(y, x, stoneColor);
 			}
 
 			int bCnt = 0;
@@ -59,7 +53,7 @@ public class SWEA_4615 {
 		}
 	} // 1,2 = 2,1 --> 2-1 , 1-0
 
-	static void play(int x, int y, int stoneColor) {
+	static void dfs(int x, int y, int stoneColor) {
 		map[x][y] = stoneColor; // 배치하기.
 
 		for (int i = 0; i < 8; i++) {
@@ -69,7 +63,9 @@ public class SWEA_4615 {
 			int cnt = 0;
 			while (nx >= 0 && nx < N && ny >= 0 && ny < N && map[nx][ny] != 0) {
 				if (map[nx][ny] != stoneColor) {// 다른 색의 돌이 나오면
-					canFlip = true;
+					nx += dx[i];
+				    ny += dy[i];
+                    canFlip = true;
 					cnt++;
 				} else { // 같은 색의 돌이 나올때
 					if (canFlip == true) { // 같은색의 돌이 나왔지만 canFlip == true라면 카운트 갯수만큼 뒤집어준다.
@@ -78,11 +74,11 @@ public class SWEA_4615 {
 							int targetY = y + dy[i] * j;
 							map[targetX][targetY] = stoneColor;
 						}
+                        break;
 					} else
 						break; // 배치한 돌 바로 다음에 같은 색의 돌일때
 				}
-				nx += dx[i];
-				ny += dy[i];
+				
 
 			}
 		}
