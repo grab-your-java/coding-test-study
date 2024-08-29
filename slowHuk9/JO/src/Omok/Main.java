@@ -21,6 +21,7 @@ public class Main {
 			}
 		}
 		
+		
 		int rowResult = rowCheck();
 		int colResult = colCheck();
 		int diagnoalResult1 = diagnoal1();

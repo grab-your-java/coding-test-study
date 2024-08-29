@@ -14,6 +14,7 @@ public class Main {
 	static boolean colParity;
 
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 
 		n = sc.nextInt();
@@ -32,14 +33,11 @@ public class Main {
 
 		if (rowParity && colParity) {
 			System.out.println("OK");
-		}else if (targetRow != -1 && targetCol != -1) {
-			System.out.println("Change bit (" + targetRow + "," + targetCol + ")"); 
-		}
-		else {
+		} else if (targetRow != -1 && targetCol != -1) {
+			System.out.println("Change bit (" + (targetRow + 1) + "," + (targetCol + 1) + ")");
+		} else {
 			System.out.println("Corrupt");
 		}
-		
-		
 
 	}
 
@@ -61,7 +59,10 @@ public class Main {
 				sum += map[i][j];
 			}
 			if (sum % 2 == 0)
-				rowSum[j] = true;
+
+				colSum[j] = true;
+
+
 		}
 	}
 
