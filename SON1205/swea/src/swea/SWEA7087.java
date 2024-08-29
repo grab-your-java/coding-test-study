@@ -2,7 +2,7 @@ package swea;
 
 import java.util.Scanner;
 
-public class SWEA7272 {
+public class SWEA7087 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		

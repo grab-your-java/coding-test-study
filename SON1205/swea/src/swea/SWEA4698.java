@@ -1,30 +1,18 @@
 package swea;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 
 public class SWEA4698 {
-	static int[] arr = new int[1000001];
+	static Set<Integer> tenes = new HashSet<>();
 	
 	static {
-		for (int i = 1; i < arr.length; i++) {
-			if (isPrime(i)) {
-				arr[i]++;
-			}
-		}
-	}
-	
-	static boolean isPrime(int num) {
-		if (num == 1) {
-			return false;
-		}
-		
-		for (int j = 2; j <= (int) Math.sqrt(num); j++) {
-			if (num % j == 0) {
-				return false;
-			}
-		}
-		
-		return true;
+		tenes.add(2);
+		tenes.add(3);
+		tenes.add(5);
+		tenes.add(7);
 	}
 	
 	public static void main(String[] args) {
@@ -42,19 +30,34 @@ public class SWEA4698 {
 			int cnt = 0;
 			
 			for (int i = start; i <= end; i++) {
-				int tmp = i;
-                
-				if (arr[i] == 0) {
-                    continue;
-                }
+				if (i == 1 || i == 2) {
+					continue;
+				}
 				
-				while (tmp > 0) {
-					if (tmp % 10 == D) {
-						cnt++;
+				Iterator<Integer> iter = tenes.iterator();
+				
+				boolean isValid = true;
+				
+				while (iter.hasNext()) {
+					int x = iter.next();
+					if (i % x == 0) {
+						isValid = false;
 						break;
 					}
+				}
+				
+				if (isValid) {
+					int number = i;
+					tenes.add(number);
 					
-					tmp /= 10;
+					while (number > 0) {
+						if (number % 10 == D) {
+							cnt++;
+							break;
+						}
+						
+						number /= 10;
+					}
 				}
 			}
 			
