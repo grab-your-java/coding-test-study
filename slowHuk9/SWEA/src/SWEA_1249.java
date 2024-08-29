@@ -42,7 +42,7 @@ public class SWEA_1249 {
 
 		while (!queue.isEmpty()) {
 			int[] current = queue.poll();
-
+			
 			int currX = current[0];
 			int currY = current[1];
 			int currPrice = dijkstra[currX][currY];

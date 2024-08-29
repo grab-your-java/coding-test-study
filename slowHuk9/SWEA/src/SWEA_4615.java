@@ -24,12 +24,7 @@ public class SWEA_4615 {
 			map[N / 2][N / 2] = 2;
 			map[N / 2 - 1][N / 2] = 1;
 			map[N / 2][N / 2 - 1] = 1;
-//			for (int i = 0; i < map.length; i++) {
-//				for (int j = 0; j < map.length; j++) {
-//					System.out.print(map[i][j] + " ");
-//				}
-//				System.out.println();
-//			}
+
 			for (int i = 0; i < M; i++) {
 				int x = sc.nextInt() - 1;
 				int y = sc.nextInt() - 1;
