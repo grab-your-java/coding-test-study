@@ -30,7 +30,7 @@ public class SWEA_4014 {
 			X = sc.nextInt();
 			idx = 0;
 			map = new int[N][N];
-			isValid = new boolean[N * 3];
+			isValid = new boolean[N * 2];
 			for (int i = 0; i < map.length; i++) {
 				for (int j = 0; j < map.length; j++) {
 					map[i][j] = sc.nextInt();
