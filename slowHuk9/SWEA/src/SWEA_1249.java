@@ -6,7 +6,7 @@ public class SWEA_1249 {
 	static int[][] map;
 	static boolean[][] remained;
 	static int[][] dijkstra;
-
+//
 	static int[] dx = { 0, 1, 0, -1 }; // 우, 하, 좌, 상
 	static int[] dy = { 1, 0, -1, 0 };
 
