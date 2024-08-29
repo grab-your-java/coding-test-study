@@ -4,21 +4,20 @@ import java.util.Scanner;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-class SWEA1215
-{
-	public static void main(String args[]) throws Exception
-	{
-		Scanner sc = new Scanner(System.in);
-        
-		for(int test_case = 1; test_case <= 10; test_case++)
-		{
-			int N = sc.nextInt();
+public class SWEA1215 {
+    public static void main(String args[]) throws Exception
+    {
+        Scanner sc = new Scanner(System.in);
+
+        for(int test_case = 1; test_case <= 10; test_case++)
+        {
+            int N = sc.nextInt();
             String[][] arr = new String[8][];
 
             for (int i = 0; i < 8; i++) {
                 arr[i] = sc.next().split("");
             }
-            
+
             int count = 0;
 
             for (int i = 0; i <= 8 - N; i++) {
@@ -79,6 +78,6 @@ class SWEA1215
 
 
             System.out.println("#" + test_case + " " + count);
-		}
+        }
     }
 }

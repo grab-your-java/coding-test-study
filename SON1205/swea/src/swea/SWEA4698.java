@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class SWEA4698 {
 	static int[] arr = new int[1000001];
-	
+
 	static {
 		for (int i = 1; i < arr.length; i++) {
 			if (isPrime(i)) {
@@ -12,18 +12,18 @@ public class SWEA4698 {
 			}
 		}
 	}
-	
+
 	static boolean isPrime(int num) {
 		if (num == 1) {
 			return false;
 		}
-		
+
 		for (int j = 2; j <= (int) Math.sqrt(num); j++) {
 			if (num % j == 0) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 	
@@ -43,17 +43,16 @@ public class SWEA4698 {
 			
 			for (int i = start; i <= end; i++) {
 				int tmp = i;
-                
+
 				if (arr[i] == 0) {
-                    continue;
-                }
-				
+					continue;
+				}
+
 				while (tmp > 0) {
 					if (tmp % 10 == D) {
 						cnt++;
 						break;
 					}
-					
 					tmp /= 10;
 				}
 			}
