@@ -1,6 +1,9 @@
 package swea_2105;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Solution {
     static int N;
@@ -14,15 +17,19 @@ public class Solution {
     static int originR;
     static int originC;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
+
+        int T = Integer.parseInt(br.readLine());
         for (int t = 1; t <= T; t++) {
-            N = sc.nextInt();
+            N = Integer.parseInt(br.readLine());
             desserts = new int[N][N];
             for (int r = 0; r < N; r++) {
+                st = new StringTokenizer((br.readLine()));
                 for (int c = 0; c < N; c++) {
-                    desserts[r][c] = sc.nextInt();
+                    desserts[r][c] = Integer.parseInt(st.nextToken());
                 }
             }
 
@@ -35,9 +42,9 @@ public class Solution {
                     search(r, c, 0, 0);
                 }
             }
-
-            System.out.println("#" + t + " " + dessertCnt);
+            sb.append("#").append(t).append(" ").append(dessertCnt).append("\n");
         }
+        System.out.println(sb);
     }
 
     static void search(int r, int c, int d, int accCnt) {
