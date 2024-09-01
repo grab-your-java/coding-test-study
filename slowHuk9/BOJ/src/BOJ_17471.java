@@ -13,7 +13,9 @@ public class BOJ_17471 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
-		R = N / 2; // 뽑을 조합의 수
+		R = N / 2; // nCr 중에서 가장 큰 nCr // 6C3, 10C5 
+		// nC1 ~ nCR 까지 구해야함.
+		
 		visited = new boolean[N + 1];
 		team1 = new int[R]; // 선거구 1
 		team2 = new int[R]; // 선거구 2
