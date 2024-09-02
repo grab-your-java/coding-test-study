@@ -31,9 +31,9 @@ public class Solution {
                 }
             }
 
-            int count = 0;
+            int count = 1; // 덩어리가 없으면 1이므로
             for (int taste = min; taste <= max; taste++) {
-                count = Math.max(count, calTaste(taste));
+                count = Math.max(count, countByTaste(taste));
             }
 
             sb.append(count).append("\n");
@@ -42,7 +42,7 @@ public class Solution {
         System.out.println(sb);
     }
 
-    static int calTaste(int taste) {
+    static int countByTaste(int taste) {
         int count = 0;
         visited = new boolean[N][N];
         for (int r = 0; r < N; r++) {
