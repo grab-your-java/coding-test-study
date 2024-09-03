@@ -12,7 +12,7 @@ public class SWEA_2115 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int T = 1;
+		int T = sc.nextInt();
 		for (int tc = 1; tc <= T; tc++) {
 			N = sc.nextInt(); // 벌통의 크기
 			M = sc.nextInt(); // 한명의 일꾼이 선택하는 벌집의 수
@@ -26,34 +26,36 @@ public class SWEA_2115 {
 					map[i][j] = sc.nextInt();
 				}
 			}
-			selectHoneyHouse(0, 0);
+			select(0, 0);
 		}
 	}
 
 	// 완전탐색 하면서 M의 갯수를 충족하도록 벌집 선택. 선택된 벌집들은 visited true.
 	//
-
-	static void selectHoneyHouse(int depth, int start) {
-		// 기저 조건
+	static void select(int depth, int start) {
 		if (depth == M) {
 			System.out.println(Arrays.toString(honeyFirst));
 			return;
 		}
-		// 재귀 부분
-		for (int i = 0; i < map.length; i++) {
-			for (int j = start; j < N - M + 1; j++) {
+		for (int i = start; i < map.length; i++) {
+			for (int j = 0; j < map.length; j++) {
 				if (!visited[i][j]) {
 					for (int k = 0; k < M; k++) {
 						honeyFirst[depth + k] = map[i][j + k];
 						visited[i][j + k] = true;
 					}
-					selectHoneyHouse(depth + M, j + M);
 					for (int k = 0; k < M; k++) {
 						visited[i][j + k] = false;
+					}
+					if (N - M < M) {
+						select(depth + M, i + 1);
+					} else {
+						select(depth + M, i);
 					}
 				}
 			}
 		}
+
 	}
 
 }
