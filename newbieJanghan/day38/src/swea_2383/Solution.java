@@ -1,133 +1,134 @@
 package swea_2383;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Solution {
-    static List<Person> persons;
-    static int N; // persons.size();
-    static boolean[] collected;
+	static List<Person> persons;
+	static int N; // persons.size();
+	static boolean[] collected;
 
-    static Stair stair1, stair2;
-    static int[] s1waitList, s2waitList;
-    static int minTime;
+	static Stair[] stairs;
+	static int minTime;
 
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        StringBuilder sb = new StringBuilder();
+		int T = sc.nextInt();
+		for (int t = 1; t <= T; t++) {
+			sb.append("#").append(t).append(" ");
+			int n = sc.nextInt();
+			persons = new ArrayList<>();
+			stairs = new Stair[2];
+			for (int r = 0; r < n; r++) {
+				for (int c = 0; c < n; c++) {
+					int input = sc.nextInt();
+					// persons
+					if (input == 1) {
+						persons.add(new Person(r, c));
+					}
+					// stairs
+					else if (input > 1) {
+						if (stairs[0] == null) {
+							stairs[0] = new Stair(r, c, input);
+						} else {
+							stairs[1] = new Stair(r, c, input);
+						}
+					}
+				}
+			}
 
-        int T = sc.nextInt();
-        for (int t = 1; t <= T; t++) {
-            sb.append("#").append(t).append(" ");
-            int n = sc.nextInt();
-            persons = new ArrayList<>();
-            for (int r = 0; r < n; r++) {
-                for (int c = 0; c < n; c++) {
-                    int input = sc.nextInt();
-                    // persons
-                    if (input == 1) {
-                        persons.add(new Person(r, c));
-                    }
-                    // stairs
-                    else if (input > 1) {
-                        if (stair1 == null) {
-                            stair1 = new Stair(r, c, input);
-                        } else {
-                            stair2 = new Stair(r, c, input);
-                        }
-                    }
-                }
-            }
-            N = persons.size();
-            collected = new boolean[N];
-            minTime = Integer.MAX_VALUE;
+			for (Person person : persons) {
+				person.calculateDist(stairs);
+			}
 
-            makeSubsets(0);
+			N = persons.size();
+			collected = new boolean[N];
+			minTime = Integer.MAX_VALUE;
 
-            sb.append(minTime).append("\n");
-        }
-        System.out.println(sb);
-    }
+			makeSubsets(0);
 
-    static void makeSubsets(int depth) {
-        if (depth == N) {
-            System.out.println(Arrays.toString(collected));
+			sb.append(minTime).append("\n");
+		}
+		System.out.println(sb);
+	}
 
-            s1waitList = new int[100];
-            s2waitList = new int[100];
-            for (int i = 0; i < N; i++) {
-                // partA
-                if (collected[i]) {
-                    int dist = calDistance(persons.get(i), stair1);
-                    for (int time = dist + 1; time <= dist + stair1.time; time++) {
-                        s1waitList[time]++;
-                    }
-                }
-                // partB
-                else {
-                    int dist = calDistance(persons.get(i), stair2);
-                    for (int time = dist + 1; time <= dist + stair2.time; time++) {
-                        s2waitList[time]++;
-                    }
-                }
-            }
-            
-            System.out.println(Arrays.toString(s1waitList));
-            System.out.println(Arrays.toString(s2waitList));
+	static void makeSubsets(int depth) {
+		if (depth == N) {
+			boolean target = true;
+			int totalTime = 0;
+			for (int i = 0; i < stairs.length; i++) {
+				int index = i; // for lamda
+				PriorityQueue<Person> pq = new PriorityQueue<>((a, b) -> a.dists[index] - b.dists[index]);
 
-            int s1Time = 0;
-            for (int time = 0; time < s1waitList.length; time++) {
-                if (s1waitList[time] > 0) {
-                    s1Time = time;
-                }
-                if (s1waitList[time] > 3) {
-                    s1waitList[time + 1] += s1waitList[time] - 3;
-                }
-            }
+				for (int j = 0; j < N; j++) {
+					if (collected[j] == target) {
+						pq.add(persons.get(j));
+					}
+				}
 
-            int s2Time = 0;
-            for (int time = 0; time < s2waitList.length; time++) {
-                if (s2waitList[time] > 0) {
-                    s2Time = time;
-                }
-                if (s2waitList[time] > 3) {
-                    s2waitList[time + 1] += s2waitList[time] - 3;
-                }
-            }
+				int[] waitlist = new int[100];
+				while (!pq.isEmpty()) {
+					int pivot = pq.poll().dists[i] + 1;
+					while (pivot < waitlist.length) {
+						if (waitlist[pivot] >= 3) {
+							pivot++;
+						} else {
+							break;
+						}
+					}
 
-            minTime = Math.min(minTime, Math.max(s1Time, s2Time));
-            return;
-        }
+					if (pq.size() == 0) {
+						totalTime = Math.max(totalTime, pivot + stairs[i].time);
+						break;
+					}
 
-        collected[depth] = true;
-        makeSubsets(depth + 1);
-        collected[depth] = false;
-        makeSubsets(depth + 1);
-    }
+					for (int time = pivot; time < pivot + stairs[i].time; time++) {
+						waitlist[time]++;
+					}
+				}
 
-    static class Person {
-        int r, c;
+				// for next stair
+				target = false;
+			}
 
-        public Person(int r, int c) {
-            this.r = r;
-            this.c = c;
-        }
-    }
+			minTime = Math.min(minTime, totalTime);
+			return;
+		}
 
-    static class Stair {
-        int r, c, time;
+		collected[depth] = true;
+		makeSubsets(depth + 1);
+		collected[depth] = false;
+		makeSubsets(depth + 1);
+	}
 
-        public Stair(int r, int c, int time) {
-            this.r = r;
-            this.c = c;
-            this.time = time;
-        }
-    }
+	static class Person {
+		int r, c;
+		int[] dists;
 
-    static int calDistance(Person person, Stair stair) {
-        return Math.abs(person.r - stair.r) + Math.abs(person.c - stair.c);
-    }
+		public Person(int r, int c) {
+			this.r = r;
+			this.c = c;
+		}
+
+		void calculateDist(Stair[] stairs) {
+			dists = new int[stairs.length];
+			for (int i = 0; i < dists.length; i++) {
+				dists[i] = Math.abs(this.r - stairs[i].r) + Math.abs(this.c - stairs[i].c);
+			}
+		}
+	}
+
+	static class Stair {
+		int r, c, time;
+
+		public Stair(int r, int c, int time) {
+			this.r = r;
+			this.c = c;
+			this.time = time;
+		}
+	}
 }
