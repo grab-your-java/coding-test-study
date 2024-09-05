@@ -25,7 +25,11 @@ public class BOJ_17471 {
 			population[i] = sc.nextInt();
 		}
 		floyd = new int[N + 1][N + 1];
-		combination(0, 1);
+		for (int i = 1; i <= R; i++) {
+			combination(0, 1, i);
+			System.out.println("______________________________");
+		}
+		
 
 		for (int i = 1; i < floyd.length; i++) {
 			int neighborCnt = sc.nextInt();
@@ -44,11 +48,8 @@ public class BOJ_17471 {
 
 	}
 
-	static void combination(int depth, int start) {
-		for (int i = 1; i <= R; i++) {
-			
-		}
-		if (depth == R) {
+	static void combination(int depth, int start, int limit) {
+		if (depth == limit) {
 			int idx = 0;
 			for (int i = 1; i < visited.length; i++) {
 				if (!visited[i])
@@ -64,7 +65,7 @@ public class BOJ_17471 {
 				team1[depth] = i;
 				visited[i] = true;
 			}
-			combination(depth + 1, i + 1);
+			combination(depth + 1, i + 1, limit);
 			visited[i] = false;
 		}
 
