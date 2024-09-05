@@ -52,6 +52,8 @@ public class test {
 			// 각 자석마다 화살표에 해당하는 인덱스의 값을 구하고 자석별 점수 구해서 더하기.
 			return;
 		}
+		
+		//재귀 부분
 		if(selMagnet == 1) { // 돌리는 자석 번호가 1일때
 			if(spinDirection ==1) { // 시계방향일때
 				
