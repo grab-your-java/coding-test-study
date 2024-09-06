@@ -42,19 +42,10 @@ public class Solution {
 		}
 
 		// 0. check.
-		boolean required = false;
-		for (int w = 0; w < W; w++) {
-			if (!checkStraight(w)) {
-				required = true;
-				break;
-			}
-		}
-		if (!required) {
-			minCnt = Math.min(minCnt, cnt);
-			return;
-		}
-
 		if (d == D) {
+			if(check()) {
+				minCnt = Math.min(minCnt, cnt);
+			}
 			return;
 		}
 
@@ -76,22 +67,31 @@ public class Solution {
 		films[d] = temp;
 	}
 
-	static boolean checkStraight(int w) {
-		boolean flag = films[0][w];
-		int count = 1;
-		for (int d = 1; d < D; d++) {
-			if (flag == films[d][w]) {
-				count++;
-			} else {
-				flag = films[d][w];
-				count = 1;
-			}
+	static boolean check() {
+		for (int w =0; w<W; w++) {
+			boolean flag = false;
+			
+			boolean prev = films[0][w];
+			int count = 1;
+			for (int d = 1; d < D; d++) {
+				if (prev == films[d][w]) {
+					count++;
+				} else {
+					prev = films[d][w];
+					count = 1;
+				}
 
-			if (count >= K) {
-				return true;
+				if (count >= K) {
+					flag = true;
+					break;
+				}
+			}
+			
+			if (!flag) {
+				return false;
 			}
 		}
-
-		return false;
+		
+		return true;
 	};
 }
