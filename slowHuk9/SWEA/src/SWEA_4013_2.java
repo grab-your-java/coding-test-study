@@ -27,11 +27,8 @@ public class SWEA_4013_2 {
 				int selectMagnet = sc.nextInt(); // 회전시킬 자석 번호
 				int direction = sc.nextInt(); // 회전 방향 / 1 시계 -1 반시계
 				spin(selectMagnet, direction);
-				for (int j = 1; j < 5; j++) {
-					System.out.println(Arrays.toString(magnetic[j]));
-				}
 			}
-			System.out.println(calculate());
+			System.out.println("#" + tc + " " + calculate());
 		}
 	}
 
@@ -39,8 +36,6 @@ public class SWEA_4013_2 {
 		if (i < 1 || i > 4 || visited[i]) {
 			return;
 		}
-
-		rotate(i, direction);
 		visited[i] = true;
 
 		if (i > 1 && magnetic[i][6] != magnetic[i - 1][2] && !visited[i - 1]) {
@@ -50,7 +45,8 @@ public class SWEA_4013_2 {
 		if (i < 4 && magnetic[i][2] != magnetic[i + 1][6] && !visited[i + 1]) {
 			spin(i + 1, -direction);
 		}
-
+		rotate(i, direction);
+		visited[i] = false;
 	}
 
 	static void rotate(int i, int direction) {
@@ -76,10 +72,10 @@ public class SWEA_4013_2 {
 				score += magnetic[i][0] * 2;
 			}
 			if (i == 3 && magnetic[i][0] == 1) {
-				score += magnetic[i][0] * 3;
+				score += magnetic[i][0] * 4;
 			}
 			if (i == 4 && magnetic[i][0] == 1) {
-				score += magnetic[i][0] * 4;
+				score += magnetic[i][0] * 8;
 			}
 		}
 		return score;
