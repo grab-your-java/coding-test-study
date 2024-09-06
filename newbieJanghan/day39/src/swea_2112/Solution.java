@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Solution {
 	static int D, W, K;
 	static boolean[][] films;
+	static boolean[] A, B;
 	static int minCnt;
 
 	public static void main(String[] args) {
@@ -25,8 +26,11 @@ public class Solution {
 					films[d][w] = sc.nextInt() == 1;
 				}
 			}
+			A = new boolean[W];
+			B = new boolean[W];
+			Arrays.fill(B, true);
 
-			minCnt = D;
+			minCnt = K;
 			inject(0, 0);
 
 			sb.append(minCnt).append("\n");
@@ -36,6 +40,12 @@ public class Solution {
 	}
 
 	static void inject(int d, int cnt) {
+		// no need to move on
+		if(check()) {
+			minCnt = Math.min(minCnt, cnt);
+			return;
+		}
+		
 		// 0. backtracking
 		if (cnt > minCnt) {
 			return;
@@ -43,9 +53,6 @@ public class Solution {
 
 		// 0. check.
 		if (d == D) {
-			if(check()) {
-				minCnt = Math.min(minCnt, cnt);
-			}
 			return;
 		}
 
@@ -53,14 +60,14 @@ public class Solution {
 		inject(d + 1, cnt);
 
 		// prepare copy
-		boolean[] temp = films[d].clone();
+		boolean[] temp = films[d];
 
 		// 2. inject A
-		Arrays.fill(films[d], false); 
+		films[d] = A;
 		inject(d + 1, cnt + 1);
 
 		// 3. inject B
-		Arrays.fill(films[d], true);
+		films[d] = B;
 		inject(d + 1, cnt + 1);
 
 		// restore copied
