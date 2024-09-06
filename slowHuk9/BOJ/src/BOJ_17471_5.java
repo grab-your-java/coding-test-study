@@ -1,7 +1,7 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class BOJ_17471_5 {
@@ -18,8 +18,8 @@ public class BOJ_17471_5 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
-		population = new int[7];
-		cityNum = new int[7];
+		population = new int[N + 1];
+		cityNum = new int[N + 1];
 		for (int i = 1; i < cityNum.length; i++) {
 			cityNum[i] = i;
 		}
@@ -42,15 +42,11 @@ public class BOJ_17471_5 {
 
 			subset(0, 1, i);
 		}
-		System.out.println(min);
-
-		for (int i = 0; i < adj.length; i++) {
-			for (int j = 0; j < adj.length; j++) {
-				System.out.print(adj[i][j] + " ");
-			}
-			System.out.println();
+		if (min == Integer.MAX_VALUE) {
+			System.out.println(-1);
+		} else {
+			System.out.println(min);
 		}
-
 	}
 
 	static void subset(int depth, int start, int size) {
@@ -60,11 +56,9 @@ public class BOJ_17471_5 {
 				if (!visited[i])
 					team2.add(i);
 			}
-			System.out.println("team1 = " + team1 + " team2 = " + team2);
 			team1Valid();
 			team2Valid();
 			if (connected1 && connected2) {
-				System.out.println("!!!!!!!!!!!!!!!!allTrue!!!!!!!!!!!!!!");
 				// 인구수 계산하기
 				min = Math.min(calculation(), min);
 			}
@@ -84,41 +78,51 @@ public class BOJ_17471_5 {
 	}
 
 	static void team1Valid() {
-		connected1 = true;
+		boolean[] visited = new boolean[N + 1];
+		Queue<Integer> queue = new LinkedList<>();
+		queue.add(team1.get(0));
+		visited[team1.get(0)] = true;
+		int count = 1;
 
-		System.out.println("팀1 사이즈 = " + team1.size());
-		int cnt = 0;
-		for (int i = 0; i < team1.size() - 1; i++) {
-			if (adj[team1.get(i)][team1.get(i + 1)] == 0) {
-				connected1 = false;
-				break;
-			} else {
-				cnt++;
-				if (cnt == team1.size()) {
-					connected1 = true;
+		while (!queue.isEmpty()) {
+			int current = queue.poll();
+			for (int i = 1; i <= N; i++) {
+				if (adj[current][i] == 1 && !visited[i] && team1.contains(i)) {
+					queue.add(i);
+					visited[i] = true;
+					count++;
 				}
 			}
 		}
-		System.out.println("팀 1은 이어져 있는가 => " + connected1);
+		if (count == team1.size()) {
+			connected1 = true;
+		} else {
+			connected1 = false;
+		}
 	}
 
 	static void team2Valid() {
-		connected2 = true;
-		System.out.println("팀2 사이즈 = " + team2.size());
-		int cnt = 0;
-		for (int i = 0; i < team2.size() - 1; i++) {
-			if (adj[team2.get(i)][team2.get(i + 1)] == 0) {
-				connected2 = false;
-				break;
-			} else {
-				cnt++;
-				if (cnt == team1.size()) {
-					connected2 = true;
+		boolean[] visited = new boolean[N + 1];
+		Queue<Integer> queue = new LinkedList<>();
+		queue.add(team2.get(0));
+		visited[team2.get(0)] = true;
+		int count = 1;
+
+		while (!queue.isEmpty()) {
+			int current = queue.poll();
+			for (int i = 1; i <= N; i++) {
+				if (adj[current][i] == 1 && !visited[i] && team2.contains(i)) {
+					queue.add(i);
+					visited[i] = true;
+					count++;
 				}
 			}
 		}
-		System.out.println("팀 2은 이어져 있는가 => " + connected2);
-		System.out.println("_____________________________________");
+		if (count == team2.size()) {
+			connected2 = true;
+		} else {
+			connected2 = false;
+		}
 	}
 
 	static int calculation() {
