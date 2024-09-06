@@ -62,17 +62,14 @@ public class Solution {
 		inject(d + 1, cnt);
 
 		// prepare copy
-		boolean[] temp = Arrays.copyOf(films[d], W);
+		boolean[] temp = films[d].clone();
 
 		// 2. inject A
-		boolean[] A = new boolean[W];
-		films[d] = A;
+		Arrays.fill(films[d], false); 
 		inject(d + 1, cnt + 1);
 
 		// 3. inject B
-		boolean[] B = new boolean[W];
-		Arrays.fill(B, true);
-		films[d] = B;
+		Arrays.fill(films[d], true);
 		inject(d + 1, cnt + 1);
 
 		// restore copied
