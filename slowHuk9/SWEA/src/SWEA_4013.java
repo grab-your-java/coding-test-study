@@ -31,39 +31,48 @@ public class SWEA_4013 {
 	}
 
 	static void spin(int i, int direction, int depth) {
-		// 기저 조건
 		if (i < 4 && magnetic[i][2] == magnetic[i + 1][6]) {
+			System.out.println("1111");
 			return;
 		}
 		
 		if(depth == K) {
-			calculate();
+			System.out.println("DEPTH == K");
 			return;
 		}
 
 		// 재귀
-		if (i > 1 && magnetic[i - 1][6] != magnetic[i][2] && !visited[i-1]) { // 왼쪽 자석과 날이 다를 경우
+		if (i > 1 && magnetic[i - 1][2] != magnetic[i][6] && !visited[i-1]) { // 왼쪽 자석과 날이 다를 경우
 			if (direction == 1) {
 				arrow[i] = (arrow[i] + N + 1) % N;
 				visited[i] = true;
-				spin(i - 1, direction - 2, depth +1);
+				spin(i - 1, -direction, depth +1);
+				visited[i] = false;
 			}
 			if (direction == -1) {
 				arrow[i] = (arrow[i] + N - 1) % N;
 				visited[i] = true;
-				spin(i - 1, direction + 2, depth +1);
+				spin(i - 1, -direction, depth +1);
+				visited[i] = false;
 			}
 		}
 		if (i < 4 && magnetic[i][2] != magnetic[i + 1][6] && !visited[i+1]) { // 오른 자석과 날이 다른 경우
 			if (direction == 1) {
+			
+				System.out.println(i+"번 자석" + direction + "이므로 시계방향 회전");
+				System.out.println("before 화살표 인덱스 : " + arrow[i]);
 				arrow[i] = (arrow[i] + N + 1) % N;
+				System.out.println("after 화살표 인덱스 : " + arrow[i]);
 				visited[i] = true;
-				spin(i + 1, direction - 2, depth +1);
+				spin(i + 1, -direction, depth +1);
+				visited[i] = false;
+				System.out.println("호출");
 			}
 			if (direction == -1) {
 				arrow[i] = (arrow[i] + N - 1) % N;
 				visited[i] = true;
-				spin(i + 1, direction + 2, depth +1);
+				spin(i + 1, -direction, depth +1);
+				visited[i] = false;
 			}
 		}
 
