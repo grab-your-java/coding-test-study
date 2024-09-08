@@ -1,6 +1,7 @@
 package swea_1953;
 
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Solution {
@@ -44,54 +45,48 @@ public class Solution {
 
             visited = new boolean[N][M];
             count = 0;
-            dfs(0, R, C);
+            bfs();
 
-            for (boolean[] row : visited) {
-                System.out.println(Arrays.toString(row));
-            }
             sb.append(count).append("\n");
         }
         System.out.println(sb);
     }
 
-    public static void dfs(int depth, int r, int c) {
-        if (depth == L) {
-            return;
-        }
+    public static void bfs() {
+        Queue<Integer> queue = new LinkedList<>();
 
-        visited[r][c] = true;
+        visited[R][C] = true;
         count++;
 
-        int type = map[r][c];
-        for (int d = 0; d < 4; d++) {
-            if (!directionType[type][d]) {
-                continue;
+        queue.add(1); // round;
+        queue.add(R);
+        queue.add(C);
+
+        while (!queue.isEmpty()) {
+            int round = queue.poll();
+            if (round == L) {
+                break;
             }
 
-            int nr = r + dr[d];
-            int nc = c + dc[d];
-            if (0 <= nr && nr < N && 0 <= nc && nc < M) {
-                System.out.print(printDashes(depth) + " depth  " + depth + " try [" + r + "," + c + "] type " + Arrays.toString(directionType[map[r][c]]) + " => [" + nr + "," + nc + "] type " + Arrays.toString(directionType[map[nr][nc]]));
-                if (visited[nr][nc]) {
-                    System.out.println(" but no, visited");
-                } else if (!checkEntry(d, nr, nc)) {
-                    System.out.println(" but no, entry not match");
-                } else {
-                    System.out.println(" yes!");
-                    dfs(depth + 1, nr, nc);
+            int r = queue.poll(), c = queue.poll();
+            int type = map[r][c];
+
+            for (int d = 0; d < 4; d++) {
+                if (!directionType[type][d]) { // the pipe doesn't have this direction
+                    continue;
+                }
+
+                int nr = r + dr[d];
+                int nc = c + dc[d];
+                if (0 <= nr && nr < N && 0 <= nc && nc < M && !visited[nr][nc] && checkEntry(d, nr, nc)) {
+                    visited[nr][nc] = true;
+                    count++;
+                    queue.add(round + 1);
+                    queue.add(nr);
+                    queue.add(nc);
                 }
             }
         }
-    }
-
-    public static String printDashes(int n) {
-        StringBuilder dashes = new StringBuilder();
-
-        for (int i = 0; i < n; i++) {
-            dashes.append("-");
-        }
-
-        return dashes.toString();
     }
 
     public static boolean checkEntry(int directionFrom, int arrivalR, int arrivalC) {
