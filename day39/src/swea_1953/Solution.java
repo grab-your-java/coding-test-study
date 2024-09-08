@@ -1,13 +1,12 @@
 package swea_1953;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Solution {
     static int N, M, R, C, L;
     static int[][] map;
     static boolean[][] visited;
+    static boolean[][] counted;
     static int count;
 
     // up, down, left, right
@@ -44,51 +43,43 @@ public class Solution {
             }
 
             visited = new boolean[N][M];
+            counted = new boolean[N][M];
+
             count = 0;
-            bfs();
+            visited[R][C] = true;
+            dfs(0, R, C);
+            visited[R][C] = false;
 
             sb.append(count).append("\n");
         }
         System.out.println(sb);
     }
 
-    public static void bfs() {
-        Queue<Integer> queue = new LinkedList<>();
+    public static void dfs(int depth, int r, int c) {
+        if (depth == L) {
+            return;
+        }
+        if (!counted[r][c]) {
+            counted[r][c] = true;
+            count++;
+        }
 
-        visited[R][C] = true;
-        count++;
-
-        queue.add(1); // round;
-        queue.add(R);
-        queue.add(C);
-
-        while (!queue.isEmpty()) {
-            int round = queue.poll();
-            if (round == L) {
-                break;
+        int type = map[r][c];
+        for (int d = 0; d < 4; d++) {
+            if (!directionType[type][d]) {
+                continue;
             }
 
-            int r = queue.poll(), c = queue.poll();
-            int type = map[r][c];
-
-            for (int d = 0; d < 4; d++) {
-                if (!directionType[type][d]) { // the pipe doesn't have this direction
-                    continue;
-                }
-
-                int nr = r + dr[d];
-                int nc = c + dc[d];
-                if (0 <= nr && nr < N && 0 <= nc && nc < M && !visited[nr][nc] && checkEntry(d, nr, nc)) {
-                    visited[nr][nc] = true;
-                    count++;
-                    queue.add(round + 1);
-                    queue.add(nr);
-                    queue.add(nc);
-                }
+            int nr = r + dr[d];
+            int nc = c + dc[d];
+            if (0 <= nr && nr < N && 0 <= nc && nc < M && !visited[nr][nc] && checkEntry(d, nr, nc)) {
+                visited[nr][nc] = true;
+                dfs(depth + 1, nr, nc);
+                visited[nr][nc] = false;
             }
         }
     }
-
+    
     public static boolean checkEntry(int directionFrom, int arrivalR, int arrivalC) {
         int entrancePoint = directionFrom < 2 ? Math.abs(directionFrom - 1) : Math.abs(directionFrom - 5);
         return directionType[map[arrivalR][arrivalC]][entrancePoint];
