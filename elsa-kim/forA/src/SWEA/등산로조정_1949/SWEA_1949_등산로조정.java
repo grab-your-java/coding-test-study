@@ -1,4 +1,4 @@
-package SWEA;
+package SWEA.등산로조정_1949;
 
 import java.util.Scanner;
 
