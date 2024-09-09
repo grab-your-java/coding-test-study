@@ -26,6 +26,7 @@ static void queen(int depth, int r) {
 	}
 ```
 ** 각 행과 열에 대한 백트래킹을 하는 것은 잘 했으나 대각선을 체크 하는 과정에서 nr, nc 좌표가 이미 true면 단순히 while문을 벗어나도록 설계. 왜 이렇게 설계했는지 모르겠음.. 탐색할 경로에 true가 있다는 건 공격을 당할 위치라는 것인데 왜 바로 return false를 안했는지 모르겠다.. ㅠ **
+
 **  여기서 논리 오류 발생 **
 
 ```
@@ -61,6 +62,7 @@ static void queen(int depth, int r) {
 
 ### 다시 생각하니까?
 ** 각 행을 기준으로 잡고 열을 순회 하면서 queen을 놓으면, 각 행마다 퀸은 1개만 놓을 수 있기 때문에 행에 대한 queen 중복 확인을 안해도 됨 **
+
 ** 1행에 queen을 놓았다면 해당 열에 대한 중복만 확인하고 바로 2행으로 넘어가면 된다는 것 **
 ```
 static boolean isSafe(int r, int c) {
