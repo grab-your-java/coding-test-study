@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class Main2 {
+public class Main {
 	static int N;
 	static boolean[][] friendships;
 	static int[][] distances;
