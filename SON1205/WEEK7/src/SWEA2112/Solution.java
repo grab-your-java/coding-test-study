@@ -1,4 +1,4 @@
-package SWEA_2112_보호필름;
+package SWEA2112;
 
 import java.util.Scanner;
 
