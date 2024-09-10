@@ -1,8 +1,9 @@
-package N_M;
 
+
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class N_M_9 {
+public class NextPermutation {
 	static int N, M;
 	static int[] arr;
 
@@ -14,11 +15,14 @@ public class N_M_9 {
 		for (int i = 0; i < N; i++) {
 			arr[i] = sc.nextInt();
 		}
+		
+		Arrays.sort(arr);
 
 		do {
 			for (int i = 0; i < M; i++) {
 				System.out.print(arr[i] + " ");
 			}
+			System.out.println();
 		} while (nextPerm());
 	}
 
