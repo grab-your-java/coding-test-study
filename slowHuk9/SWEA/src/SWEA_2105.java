@@ -26,10 +26,10 @@ public class SWEA_2105 {
 					dfs(i, j, 0, 1, i, j);
 				}
 			}
-			
-			if(max == 0 ) {
+
+			if (max == 0) {
 				System.out.println("#" + tc + " -1");
-			}else {
+			} else {
 				System.out.println("#" + tc + " " + max);
 			}
 
@@ -37,20 +37,23 @@ public class SWEA_2105 {
 	}
 
 	static void dfs(int r, int c, int currDir, int dessertCnt, int startR, int startC) {
-		if(dessert[map[r][c]]) return;
+		if (dessert[map[r][c]])
+			return;
 		dessert[map[r][c]] = true;
-		for (int i = 0; i < 4; i++) {
-			if (i == (currDir + 2) % 4)
-				continue;
-			int nr = r + dr[i];
-			int nc = c + dc[i];
+		for (int i = 0; i < 2; i++) {
+			int way = (currDir + i) % 4;
+			int nr = r + dr[way];
+			int nc = c + dc[way];
+			if (currDir == 3 && (nr < startR || nc > startC)) {
+				break;
+			}
 			if (nr == startR && nc == startC && dessertCnt >= 4) { // 원점에 돌아왔고, 조건 충족
-	            max = Math.max(max, dessertCnt);
-	            continue;
-	        }
+				max = Math.max(max, dessertCnt);
+				continue;
+			}
 
 			if (nr >= 0 && nr < N && nc >= 0 && nc < N && !dessert[map[nr][nc]]) {
-				dfs(nr, nc, i, dessertCnt + 1, startR, startC);
+				dfs(nr, nc, way, dessertCnt + 1, startR, startC);
 			}
 		}
 		dessert[map[r][c]] = false;
