@@ -22,9 +22,8 @@ public class SWEA_2105_디저트카페 {
 
 			for (int i = 0; i < size - 2; i++) { // 사각형모양 되기 위해 밑 두칸 양옆 한칸 필요
 				for (int j = 1; j < size - 1; j++) {
-					if (arr[i][j] == arr[i + 1][j + 1] || arr[i][j] == arr[i + 1][j - 1]) // 좌우 대각선 밑(사각형 시작) 디저트 같으면
-																							// 넘어감
-						continue;
+					if (arr[i][j] == arr[i + 1][j + 1] || arr[i][j] == arr[i + 1][j - 1])
+						continue; // 좌우 대각선 밑(사각형 시작) 디저트 같으면 넘어감
 					for (int k = 1; k <= size - 1 - i; k++) { // k : 사각형 한 변 최대 사이즈
 
 						if (j - k >= 0) {
