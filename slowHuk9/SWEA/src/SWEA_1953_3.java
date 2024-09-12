@@ -36,6 +36,11 @@ public class SWEA_1953_3 {
 			for (int i = 0; i < pipe.length; i++) {
 				pipe[i] = new ArrayList<>();
 			}
+			
+			if(L == 1) {
+				System.out.println("#" + tc + " 1");
+				continue;
+			}
 			pipe[1].add(1);
 			pipe[1].add(2);
 			pipe[1].add(3);
