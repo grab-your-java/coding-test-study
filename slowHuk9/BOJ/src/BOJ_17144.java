@@ -45,13 +45,9 @@ public class BOJ_17144 {
 				}
 			}
 			update();// 모든 확산 후 afterSpread의 값을 map으로 업데이트
-			print2();
-			System.out.println();
 			reset();// 임시 배열 초기화.
 			cleaner();// 청정기 작동
 			time++;
-			print();
-			System.out.println();
 		}
 		int result = 0;
 		for (int i = 0; i < R; i++) {
@@ -63,22 +59,22 @@ public class BOJ_17144 {
 		System.out.println(result);
 	}
 
-	static void print() {
-		for (int i = 0; i < R; i++) {
-			for (int j = 0; j < C; j++) {
-				System.out.print(map[i][j] + " ");
-			}
-			System.out.println();
-		}
-	}
-	static void print2() {
-		for (int i = 0; i < R; i++) {
-			for (int j = 0; j < C; j++) {
-				System.out.print(afterSpread[i][j] + " ");
-			}
-			System.out.println();
-		}
-	}
+//	static void print() {
+//		for (int i = 0; i < R; i++) {
+//			for (int j = 0; j < C; j++) {
+//				System.out.print(map[i][j] + " ");
+//			}
+//			System.out.println();
+//		}
+//	}
+//	static void print2() {
+//		for (int i = 0; i < R; i++) {
+//			for (int j = 0; j < C; j++) {
+//				System.out.print(afterSpread[i][j] + " ");
+//			}
+//			System.out.println();
+//		}
+//	}
 
 	static void spread(int r, int c) {
 		int cnt = 0;
