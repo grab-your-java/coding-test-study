@@ -3,106 +3,66 @@ package SWEA;
 import java.util.Scanner;
 
 public class SWEA_2105_디저트카페 {
+	static int max, size;
+	static int[][] arr;
+	static boolean[] check;
+	static int[] nr = { 1, 1, -1, -1 };
+	static int[] nc = { -1, 1, 1, -1 };
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int T = sc.nextInt();
 
 		for (int tc = 1; tc <= T; tc++) {
-			int size = sc.nextInt();
-			int arr[][] = new int[size][size];
-			int cnt = -1;
-			boolean[] check = new boolean[101];
-
-			for (int i = 0; i < arr.length; i++) {
-				for (int j = 0; j < arr.length; j++) {
+			size = sc.nextInt();
+			max = 0;
+			arr = new int[size][size];
+			check = new boolean[101];
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
 					arr[i][j] = sc.nextInt();
 				}
 			}
-
-			for (int i = 0; i < size - 2; i++) { // 사각형모양 되기 위해 밑 두칸 양옆 한칸 필요
+			for (int i = 0; i < size - 2; i++) {
 				for (int j = 1; j < size - 1; j++) {
-					if (arr[i][j] == arr[i + 1][j + 1] || arr[i][j] == arr[i + 1][j - 1]) // 좌우 대각선 밑(사각형 시작) 디저트 같으면
-																							// 넘어감
-						continue;
-					for (int k = 1; k <= size - 1 - i; k++) { // k : 사각형 한 변 최대 사이즈
-
-						if (j - k >= 0) {
-							lRec: for (int m = 1; m <= k; m++) {
-								if (i + k + m >= size || j + m >= size)
-									break;
-								int sum = 0;
-								check = new boolean[101];
-
-								for (int l = 1; l <= k; l++) {
-									if (check[arr[i + l][j - l]])
-										break lRec;
-									sum++;
-									check[arr[i + l][j - l]] = true;
-								}
-								for (int l = 1; l <= m; l++) {
-									if (check[arr[i + k + l][j - k + l]])
-										break lRec;
-									sum++;
-									check[arr[i + k + l][j - k + l]] = true;
-								}
-								for (int l = 1; l <= k; l++) {
-									if (check[arr[i + k + m - l][j - k + m + l]])
-										continue lRec;
-									sum++;
-									check[arr[i + k + m - l][j - k + m + l]] = true;
-								}
-								for (int l = 1; l <= m; l++) {
-									if (check[arr[i + m - l][j + m - l]])
-										break lRec;
-									sum++;
-									check[arr[i + m - l][j + m - l]] = true;
-								}
-								if (sum > cnt)
-									cnt = sum;
-							}
-
-						}
-						if (j + k < size) {
-							rRec: for (int m = 1; m <= k; m++) {
-								if (i + k + m >= size || j - m < 0)
-									break;
-								int sum = 0;
-								check = new boolean[101];
-								for (int l = 1; l <= k; l++) {
-									if (check[arr[i + l][j + l]])
-										break rRec;
-									sum++;
-									check[arr[i + l][j + l]] = true;
-								}
-								for (int l = 1; l <= m; l++) {
-									if (check[arr[i + k + l][j + k - l]])
-										break rRec;
-									sum++;
-									check[arr[i + k + l][j + k - l]] = true;
-								}
-								for (int l = 1; l <= k; l++) {
-									if (check[arr[i + k + m - l][j + k - m - l]])
-										continue rRec;
-									sum++;
-									check[arr[i + k + m - l][j + k - m - l]] = true;
-								}
-								for (int l = 1; l <= m; l++) {
-									if (check[arr[i + m - l][j - m + l]])
-										break rRec;
-									sum++;
-									check[arr[i + m - l][j - m + l]] = true;
-								}
-								if (sum > cnt)
-									cnt = sum;
-							}
-						}
-					}
+					check[arr[i + 1][j - 1]] = true;
+					choose(i + 1, j - 1, i, j, 1, 0);
+					check[arr[i + 1][j - 1]] = false;
 				}
 			}
-			System.out.println("#" + tc + " " + cnt);
-
+			System.out.println("#" + tc + " " + (max == 0 ? -1 : max));
 		}
+	}
+
+	private static void choose(int i, int j, int startI, int startJ, int cnt, int way) {
+		if (i < startI) {
+			return;
+		}
+
+		if (way == 3 && i == startI && j == startJ) {
+			if (cnt > max)
+				max = cnt;
+			return;
+		}
+
+		int r = i + nr[way];
+		int c = j + nc[way];
+		if (r >= 0 && c >= 0 && r < size && c < size && !check[arr[r][c]]) {
+			check[arr[r][c]] = true;
+			choose(r, c, startI, startJ, cnt + 1, way);
+			check[arr[r][c]] = false;
+		}
+
+		if (way < 3) {
+			r = i + nr[way + 1];
+			c = j + nc[way + 1];
+			if (r >= 0 && c >= 0 && r < size && c < size && !check[arr[r][c]]) {
+				check[arr[r][c]] = true;
+				choose(r, c, startI, startJ, cnt + 1, way + 1);
+				check[arr[r][c]] = false;
+			}
+		}
+
 	}
 
 }
