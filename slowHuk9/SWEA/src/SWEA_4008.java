@@ -21,7 +21,7 @@ public class SWEA_4008 {
 		for (int tc = 1; tc <= T; tc++) {
 			N = sc.nextInt();
 			opCnt = new int[5]; // 연산자 나온 횟수
-			op = new char[5]; // 연산자 ㄺ55
+			op = new char[5]; // 연산자
 			visited = new boolean[N];
 			nums = new int[N];
 			numsCopy = new int[N];
