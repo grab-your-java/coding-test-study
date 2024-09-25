@@ -1,6 +1,3 @@
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class BOJ_1182 {
@@ -26,10 +23,10 @@ public class BOJ_1182 {
 	}
 
 	static void Subsequence(int depth, int sum) {
+		if (sum == target) {
+			cnt++;
+		}
 		if (depth == N) {
-			if (sum == target) {
-				cnt++;
-			}
 			return;
 		}
 
