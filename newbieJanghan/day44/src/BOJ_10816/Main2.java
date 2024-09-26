@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main2 {
+	static int[] arr;
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
 		int N = Integer.parseInt(sc.nextLine());
-		int[] arr = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+		arr = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 		Arrays.sort(arr);
 
 		int M = Integer.parseInt(sc.nextLine());
@@ -16,7 +18,8 @@ public class Main2 {
 
 		StringBuilder sb = new StringBuilder();
 		for (int key : keys) {
-			int result = binarySearch(arr, 0, arr.length - 1, key);
+			int result = binarySearch(0, N - 1, key);
+
 			int cnt = 0;
 			for (int i = result; i >= 0 && i < N; i++) {
 				if (arr[i] != key) {
@@ -38,7 +41,7 @@ public class Main2 {
 		System.out.println(sb);
 	}
 
-	static int binarySearch(int[] arr, int l, int r, int key) {
+	static int binarySearch(int l, int r, int key) {
 		int mid = (l + r) / 2;
 
 		if (arr[mid] == key) {
@@ -50,9 +53,9 @@ public class Main2 {
 		}
 
 		if (arr[mid] > key) {
-			return binarySearch(arr, l, mid, key);
+			return binarySearch(l, mid, key);
 		} else {
-			return binarySearch(arr, mid + 1, r, key);
+			return binarySearch(mid + 1, r, key);
 		}
 	}
 }
