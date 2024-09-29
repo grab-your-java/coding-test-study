@@ -40,9 +40,11 @@ public class Main {
 	static void dfs(List<List<Integer>> adjList, boolean[] visited, int index) {
 		visited[index] = true;
 		
-		for (int i = 0; i < adjList.get(index).size(); i++) {
-			if (!visited[adjList.get(index).get(i)]) {
-				dfs(adjList, visited, adjList.get(index).get(i));
+		List<Integer> list = adjList.get(index);
+		
+		for (int i = 0; i < list.size(); i++) {
+			if (!visited[list.get(i)]) {
+				dfs(adjList, visited, list.get(i));
 			}
 		}
 	}
