@@ -33,5 +33,5 @@ public class BOJ_10814 {
 			System.out.println(list[i][0] + " " + list[i][1]);
 		}
 	}
-
+	
 }
