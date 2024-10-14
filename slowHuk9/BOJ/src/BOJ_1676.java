@@ -8,11 +8,12 @@ public class BOJ_1676 {
 		int N = sc.nextInt();
 		
 		int cnt = 0;
-		
-		while(N >= 5) {
-			
-			
+
+		while (N >= 5) {
+			cnt += N / 5;
+			N = N / 5;
 		}
+		System.out.println(cnt);
 	}
 }
 //		응 아니야 ㅋ 
