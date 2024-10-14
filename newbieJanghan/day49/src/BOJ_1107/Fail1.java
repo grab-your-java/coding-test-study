@@ -49,7 +49,7 @@ public class Fail1 {
 		}
 		
 		int upper = n;
-		while (upper <= 500000) {
+		while (upper < 1000000) {
 			int[] numbers = Arrays.stream(String.valueOf(upper).split("")).mapToInt(Integer::parseInt).toArray();
 			
 			int invalidIdx = numbers.length;
@@ -82,8 +82,16 @@ public class Fail1 {
 		if (upper - n < n - lower) {
 			approximate = upper;
 		}
+		
+		if (!isValid(lower, broken) && !isValid(upper, broken)) {
+			System.out.println(Math.abs(100 - n));
+			return;
+		}
+		
+		System.out.println("lower " + lower + " upper " + upper);
 		int moveCnt = Math.abs(n - approximate);
 		int inputCnt = getIntLength(approximate);
+		System.out.println("inputCnt " + inputCnt + " moveCnt " + moveCnt);
 		
 		System.out.println(Math.min(moveCnt + inputCnt, Math.abs(100 - n)));
 
@@ -97,5 +105,16 @@ public class Fail1 {
 		}
 		
 		return cnt;
+	}
+	
+	static boolean isValid(int n, boolean[] broken) {
+		int[] numbers = Arrays.stream(String.valueOf(n).split("")).mapToInt(Integer::parseInt).toArray();
+		for (int number: numbers) {
+			if (broken[number]) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
