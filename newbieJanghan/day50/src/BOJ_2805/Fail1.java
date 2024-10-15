@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
+// brute force. 시간초과
 public class Fail1 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -33,5 +34,4 @@ public class Fail1 {
 
 		System.out.println(answer);
 	}
-
 }
