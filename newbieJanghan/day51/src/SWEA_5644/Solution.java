@@ -7,9 +7,9 @@ public class Solution {
 	static class Charger {
 		int r, c, range, power;
 
-		Charger(int r, int c, int range, int power) {
-			this.r = r;
-			this.c = c;
+		Charger(int x, int y, int range, int power) {
+			this.r = y;
+			this.c = x;
 			this.range = range;
 			this.power = power;
 		}
@@ -23,23 +23,21 @@ public class Solution {
 
 	static class Person {
 		int r, c, idx;
-		int[] movements;
+		int[] commands;
 
-		Person(int r, int c) {
+		Person(int r, int c, int time) {
 			this.r = r;
 			this.c = c;
 			this.idx = 0;
-		}
-
-		void setMovements(int[] movements) {
-			this.movements = movements;
+			this.commands = new int[time];
 		}
 
 		void move() {
-			this.r += dr[idx];
-			this.c += dc[idx];
+			this.r += dr[commands[idx]];
+			this.c += dc[commands[idx]];
 			idx++;
 		}
+
 	}
 
 	public static void main(String[] args) {
@@ -53,15 +51,14 @@ public class Solution {
 			int time = sc.nextInt(), chargerCnt = sc.nextInt();
 
 			// Person
-			Person[] persons = new Person[2];
-			persons[0] = new Person(1, 1);
-			persons[1] = new Person(10, 10);
-			for (int i = 0; i < 2; i++) {
-				int[] movements = new int[time];
-				for (int j = 0; j < time; j++) {
-					movements[j] = sc.nextInt();
-					persons[i].setMovements(movements);
-				}
+			Person a = new Person(1, 1, time);
+			for (int i = 0; i < time; i++) {
+				a.commands[i] = sc.nextInt();
+			}
+			
+			Person b = new Person(10, 10, time);
+			for (int i = 0; i < time; i++) {
+				b.commands[i] = sc.nextInt();
 			}
 
 			// Charger
@@ -70,33 +67,52 @@ public class Solution {
 				chargers[i] = new Charger(sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt());
 			}
 
-			PriorityQueue<Charger>[] pqs = new PriorityQueue[2];
-			for (int i = 0; i < 2; i++) {
-				pqs[i] = new PriorityQueue<>((a, b) -> b.power - a.power);
-			}
+			PriorityQueue<Charger> aChargers = new PriorityQueue<>((c1, c2) -> c2.power - c1.power);
+			PriorityQueue<Charger> bChargers = new PriorityQueue<>((c1, c2) -> c2.power - c1.power);
 
-			int sum = 0;
-			while (time-- >= 0) {
-				for (int i = 0; i < 2; i++) {
-					for (Charger charger : chargers) {
-						if (charger.chargable(persons[i])) {
-							pqs[i].add(charger);
-						}
-					}
+			int sum = 0, spent = 0;
+			while (spent <= time) {
+				if (spent >= 1) {
+					a.move();
+					b.move();
 				}
-				
-				if (pqs[0].peek().equals(pqs[1].peek())) {
-					int max = pqs[0].peek().power;
-					if (max != 0) {
-						
+
+				for (Charger charger : chargers) {
+					if (charger.chargable(a))
+						aChargers.add(charger);
+					if (charger.chargable(b))
+						bChargers.add(charger);
+				}
+
+				Charger aMax = aChargers.isEmpty() ? null : aChargers.poll();
+				Charger bMax = bChargers.isEmpty() ? null : bChargers.poll();
+
+				if (aMax != null && bMax != null && aMax.equals(bMax)) {
+					sum += aMax.power;
+
+					int nextMax = 0;
+					if (!aChargers.isEmpty()) {
+						nextMax = aChargers.poll().power;
 					}
-					
-					
+					if (!bChargers.isEmpty()) {
+						nextMax = Math.max(nextMax, bChargers.poll().power);
+					}
+
+					sum += nextMax;
 				} else {
-					sum += (pqs[0].peek().power + pqs[1].peek().power);
+					if (aMax != null) sum += aMax.power;
+					if (bMax != null) sum += bMax.power;
 				}
 
+				aChargers.clear();
+				bChargers.clear();
+
+				spent++;
 			}
+
+			sb.append(sum).append("\n");
 		}
+
+		System.out.println(sb);
 	}
 }
