@@ -38,7 +38,7 @@ public class BOJ_1476 {
 //			System.out.println("S = " + s);
 //			System.out.println("M = " + m);
 //			System.out.println("-----------------------------------------------");
-		}
+		}	
 		System.out.println(year);
 	}
 
