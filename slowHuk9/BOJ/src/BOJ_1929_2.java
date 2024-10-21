@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main {
+public class BOJ_1929_2 {
 	public static void main(String[] args) {
 		// M과 N이 주어질때 그 사이의 소수 구하기
 		Scanner sc = new Scanner(System.in);
