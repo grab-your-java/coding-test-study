@@ -1,4 +1,4 @@
-package 실버;
+package 실버.BOJ_2004;
 
 import java.util.Scanner;
 
